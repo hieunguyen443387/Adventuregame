@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Ground
+  - Pickup
+  - Trap
+  - Boundary
+  - Enemy
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Ground
+  - Foreground
+  - Background
+  - Trap
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Sky
+    uniqueID: 1964766103
+    locked: 0
+  - name: Cloud
+    uniqueID: 4104503447
+    locked: 0
+  - name: Mountain
+    uniqueID: 3275961747
+    locked: 0
+  - name: Tree1
+    uniqueID: 3250635959
+    locked: 0
+  - name: Tree2
+    uniqueID: 3399792265
+    locked: 0
+  - name: BackGround
+    uniqueID: 3282907057
+    locked: 0
+  - name: Ground
+    uniqueID: 1180848905
+    locked: 0
+  - name: Top
+    uniqueID: 2289269515
+    locked: 0
+  - name: Player
+    uniqueID: 2687426743
+    locked: 0
+  - name: Foreground
+    uniqueID: 1758853157
+    locked: 0
+  - name: Midground
+    uniqueID: 950538461
+    locked: 0
+  m_RenderingLayers:
+  - Default
