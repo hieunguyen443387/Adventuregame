@@ -5,10 +5,10 @@ public class Attack : MonoBehaviour
     public GameObject shurikenPrefab;     // Drag Shuriken prefab vào
     public Transform firePoint;         // Vị trí nems shuriken
     public bool facingRight = false;    // Hướng bắn
-    //public Animator animator;
+    public Animator animator;
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -21,6 +21,7 @@ public class Attack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            animator.SetTrigger("Throw");
             // Spawn shuriken
             GameObject shuriken = Instantiate(shurikenPrefab, firePoint.position, Quaternion.identity);
             // Nếu shuriken  có collider, bỏ va chạm giữa chúng để viên đạn không tự huỷ ngay khi spawn
