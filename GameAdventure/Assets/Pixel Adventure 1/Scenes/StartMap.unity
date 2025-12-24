@@ -494,6 +494,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: f814743561b33c6468570fe14d0c478a, type: 3}
     - target: {fileID: 8657156865679557936, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
+      propertyPath: doubleJump
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8657156865679557936, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
+      propertyPath: isGrounded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8657156865679557936, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
@@ -516,6 +524,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3631995282470432910, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
     - {fileID: 1896434873001382222, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
+    - {fileID: 8657156865679557936, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
+    - {fileID: 8703201181392598273, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1175218465332364935, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
@@ -533,7 +543,7 @@ PrefabInstance:
       addedObject: {fileID: 42838953}
     - targetCorrespondingSourceObject: {fileID: 753307928294792223, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 42838962}
+      addedObject: {fileID: 42838955}
   m_SourcePrefab: {fileID: 100100000, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
 --- !u!1 &42838943 stripped
 GameObject:
@@ -682,7 +692,7 @@ MonoBehaviour:
   playAgainUI: {fileID: 2002470551}
   quitGameUI: {fileID: 1853963204}
   gameOverDelay: 0.2
---- !u!114 &42838962
+--- !u!114 &42838955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -691,13 +701,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 42838943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29a59ccf327e5264ebe787fab44c74e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 0164dd1d4b2448d459462ebfefc364b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ninjaFrog: {fileID: 42838959}
+  animator: {fileID: 42838957}
+  jumpSound: {fileID: 8300000, guid: f814743561b33c6468570fe14d0c478a, type: 3}
+  speed: 5
+  jumpForce: 8
+  doubleJump: 0
+  groundCheck: {fileID: 1697648670}
+  groundCheckRadius: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  isGrounded: 0
+  doubleTapTime: 0.1
   shurikenPrefab: {fileID: 6201221532740973952, guid: 8095232857d261a459291f7f7c3be2d7, type: 3}
   firePoint: {fileID: 1108657696}
-  facingRight: 0
-  animator: {fileID: 0}
+--- !u!95 &42838957 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1413842137361110348, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
+  m_PrefabInstance: {fileID: 42838942}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &42838959 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 6821653471362116956, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
+  m_PrefabInstance: {fileID: 42838942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &160171916
 GameObject:
   m_ObjectHideFlags: 0
@@ -7037,6 +7068,11 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 1657624103}
+--- !u!4 &1697648670 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4514349992096117917, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
+  m_PrefabInstance: {fileID: 42838942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1700486755
 GameObject:
   m_ObjectHideFlags: 0

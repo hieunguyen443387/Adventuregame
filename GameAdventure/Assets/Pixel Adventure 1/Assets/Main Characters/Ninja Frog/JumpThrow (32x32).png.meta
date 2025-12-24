@@ -1,28 +1,28 @@
 fileFormatVersion: 2
-guid: 9a5f0c666de00234e9f6e6a6f7164592
+guid: 9bd6d12ceee598d428890eb4202bdd26
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8454942033729407024
-    second: Throw (32x32)_0
+      213: 4892659299281431772
+    second: JumpThrow (32x32)_0
   - first:
-      213: -6798193679646120389
-    second: Throw (32x32)_1
+      213: 7216761263904931500
+    second: JumpThrow (32x32)_1
   - first:
-      213: 5521387550744210864
-    second: Throw (32x32)_2
+      213: 1270932042171070699
+    second: JumpThrow (32x32)_2
   - first:
-      213: 808780549120107482
-    second: Throw (32x32)_3
+      213: -8552875953062443074
+    second: JumpThrow (32x32)_3
   - first:
-      213: 6347994009701621233
-    second: Throw (32x32)_4
+      213: -7068211489921000177
+    second: JumpThrow (32x32)_4
   - first:
-      213: 1032537186590042640
-    second: Throw (32x32)_5
+      213: -8305323180181081635
+    second: JumpThrow (32x32)_5
   - first:
-      213: -8697815188124128806
-    second: Throw (32x32)_6
+      213: -9196375158519931123
+    second: JumpThrow (32x32)_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -66,7 +66,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -118,211 +118,155 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Throw (32x32)_0
+      name: JumpThrow (32x32)_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 3
         y: 0
-        width: 32
-        height: 32
+        width: 25
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
-      physicsShape:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
+      outline: []
+      physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0d73a0b34030aaa80800000000000000
-      internalID: -8454942033729407024
+      spriteID: cdc6ea4d5b736e340800000000000000
+      internalID: 4892659299281431772
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Throw (32x32)_1
+      name: JumpThrow (32x32)_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 30
         y: 0
-        width: 32
-        height: 32
+        width: 25
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
-      physicsShape:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
+      outline: []
+      physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b362362edd6f7a1a0800000000000000
-      internalID: -6798193679646120389
+      spriteID: cae3adb2226172460800000000000000
+      internalID: 7216761263904931500
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Throw (32x32)_2
+      name: JumpThrow (32x32)_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 57
         y: 0
-        width: 32
-        height: 32
+        width: 25
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
-      physicsShape:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
+      outline: []
+      physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0bd6f5d49b8ef9c40800000000000000
-      internalID: 5521387550744210864
+      spriteID: be8b44b65f143a110800000000000000
+      internalID: 1270932042171070699
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Throw (32x32)_3
+      name: JumpThrow (32x32)_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 84
         y: 0
-        width: 32
-        height: 32
+        width: 25
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
-      physicsShape:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
+      outline: []
+      physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad3ac83df9d593b00800000000000000
-      internalID: 808780549120107482
+      spriteID: eb78bb1c2a41e4980800000000000000
+      internalID: -8552875953062443074
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Throw (32x32)_4
+      name: JumpThrow (32x32)_4
       rect:
         serializedVersion: 2
-        x: 128
+        x: 111
         y: 0
-        width: 32
-        height: 32
+        width: 25
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
-      physicsShape:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
+      outline: []
+      physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1fd92903bea981850800000000000000
-      internalID: 6347994009701621233
+      spriteID: f0d9ce1591ba8ed90800000000000000
+      internalID: -7068211489921000177
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Throw (32x32)_5
+      name: JumpThrow (32x32)_5
       rect:
         serializedVersion: 2
-        x: 160
+        x: 138
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5333562, y: 0.49166065}
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
-      physicsShape:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
+      outline: []
+      physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 01aa410c91f445e00800000000000000
-      internalID: 1032537186590042640
+      spriteID: dd13d7432909dbc80800000000000000
+      internalID: -8305323180181081635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Throw (32x32)_6
+      name: JumpThrow (32x32)_6
       rect:
         serializedVersion: 2
-        x: 192
+        x: 165
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.6292567, y: 0.4874911}
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
-      physicsShape:
-      - - {x: 0, y: -16}
-        - {x: 16, y: 0}
-        - {x: 0, y: 16}
-        - {x: -16, y: 0}
-      tessellationDetail: 0
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
       bones: []
-      spriteID: 755ea4a179e768b48ab20d21001d63e7
-      internalID: -1713035628
+      spriteID: d0f513f8489ef5080800000000000000
+      internalID: -9196375158519931123
       vertices: []
       indices: 
       edges: []
@@ -331,7 +275,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d5d9665854d0bbc41acb4cf45df8831a
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -339,17 +283,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":3,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      Throw (32x32)_0: -8454942033729407024
-      Throw (32x32)_1: -6798193679646120389
-      Throw (32x32)_2: 5521387550744210864
-      Throw (32x32)_3: 808780549120107482
-      Throw (32x32)_4: 6347994009701621233
-      Throw (32x32)_5: 1032537186590042640
-      Throw (32x32)_6: -1713035628
+      JumpThrow (32x32)_0: 4892659299281431772
+      JumpThrow (32x32)_1: 7216761263904931500
+      JumpThrow (32x32)_2: 1270932042171070699
+      JumpThrow (32x32)_3: -8552875953062443074
+      JumpThrow (32x32)_4: -7068211489921000177
+      JumpThrow (32x32)_5: -8305323180181081635
+      JumpThrow (32x32)_6: -9196375158519931123
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
