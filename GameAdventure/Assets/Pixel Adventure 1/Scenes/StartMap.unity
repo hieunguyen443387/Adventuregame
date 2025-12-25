@@ -489,6 +489,10 @@ PrefabInstance:
       propertyPath: backgroundMusicSource
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6821653471362116956, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8657156865679557936, guid: e379b8012cc1ce443b50971f95e937ec, type: 3}
       propertyPath: jumpSound
       value: 
@@ -709,14 +713,12 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: f814743561b33c6468570fe14d0c478a, type: 3}
   speed: 5
   jumpForce: 8
-  doubleJump: 0
   groundCheck: {fileID: 1697648670}
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   isGrounded: 0
-  doubleTapTime: 0.1
   shurikenPrefab: {fileID: 6201221532740973952, guid: 8095232857d261a459291f7f7c3be2d7, type: 3}
   firePoint: {fileID: 1108657696}
 --- !u!95 &42838957 stripped

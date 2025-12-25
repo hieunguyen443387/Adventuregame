@@ -2,186 +2,155 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-	[Header("References")]
-	public Rigidbody2D ninjaFrog;
-	public Animator animator;
+    [Header("References")]
+    public Rigidbody2D ninjaFrog;
+    public Animator animator;
 
-	// ⭐ THÊM HEADERS VÀ BIẾN AUDIO MỚI ⭐
-	[Header("Audio Settings")]
-	public AudioClip jumpSound; // FILE ÂM THANH NHẢY
-	private AudioSource audioSource; // COMPONENT PHÁT ÂM THANH
-	// ⭐ KẾT THÚC THÊM BIẾN AUDIO ⭐
+    [Header("Audio Settings")]
+    public AudioClip jumpSound;
+    private AudioSource audioSource;
 
-	[Header("Movement Settings")]
-	public float speed = 5f;
-	public float jumpForce = 8f;
-	public bool doubleJump;
+    [Header("Movement Settings")]
+    public float speed = 5f;
+    public float jumpForce = 8f;
+    private bool doubleJump;
 
-	[Header("Ground Check")]
-	public Transform groundCheck;
-	public float groundCheckRadius = 0.2f;
-	public LayerMask groundLayer;
-	public bool isGrounded;
-	private Vector3 originalScale;
-	private int count;
+    [Header("Ground Check")]
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.2f;
+    public LayerMask groundLayer;
+    public bool isGrounded;
 
-	public float doubleTapTime = 0.1f;   // KHOẢNG THỜI GIAN CHO PHÉP DOUBLE TAP
-	[Header("Attack Settings")]
-	public GameObject shurikenPrefab;
+    [Header("Attack Settings")]
+    public GameObject shurikenPrefab;
     public Transform firePoint;
 
-	void Start()
-	{
-		originalScale = transform.localScale;
-		//  LẤY THAM CHIẾU AUDIO SOURCE TẠI ĐÂY 
-		audioSource = GetComponent<AudioSource>();
-		if (audioSource == null)
-		{
-			Debug.LogError("PlayerController cần AudioSource component!");
-		}
-		// ⭐ KẾT THÚC LẤY THAM CHIẾU ⭐
-	}
+    private Vector3 originalScale;
+    private bool isAttacking;
 
-	void Update()
-	{
-		// GIỮ NGUYÊN CODE KIỂM TRA GROUND VÀ DI CHUYỂN
-		if (groundCheck != null)
-			isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-		// DI CHUYỂN NGANG
-		float move = Input.GetAxisRaw("Horizontal");
-		if (ninjaFrog != null)
-		{
-			ninjaFrog.linearVelocity = new Vector2(move * speed, ninjaFrog.linearVelocity.y);
-			if (animator != null)
-				animator.SetFloat("Speed", Mathf.Abs(ninjaFrog.linearVelocity.x));
-		}
-
-		// ... (GIỮ NGUYÊN CODE XOAY NHÂN VẬT) ...
-		if (move > 0)
-		{
-			transform.localScale = new Vector3(Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
-		}
-		else if (move < 0)
-		{
-			transform.localScale = new Vector3(-Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
-		}
-
-		// JUMP LOGIC
-		if (isGrounded)
-		{
-			doubleJump = false;
-		}
-
-		// JUMP OR DOUBLE JUMP
-		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-		{
-			if (isGrounded)
-			{
-				// NORMAL JUMP
-				if (ninjaFrog != null){
-					ninjaFrog.linearVelocity = new Vector2(ninjaFrog.linearVelocity.x, jumpForce);
-					Debug.Log("Jump");
-				}
-
-				if(Input.GetKeyDown(KeyCode.F)){
-					ThrowShuriken();
-					animator.SetTrigger("JumpThrow");
-					Debug.Log("Ném trên không");
-				}
-
-				// ⭐ PHÁT ÂM THANH NHẢY (1) ⭐
-				PlayJumpSound();
-			}
-			else if (!doubleJump)
-			{
-				// DOUBLE JUMP
-				if (ninjaFrog != null)
-					ninjaFrog.linearVelocity = new Vector2(ninjaFrog.linearVelocity.x, jumpForce);
-				doubleJump = true;
-
-				// ⭐ PHÁT ÂM THANH NHẢY (2) ⭐
-				PlayJumpSound();
-			}
-		}
-
-		// CAP NHẬT ANIMATION CHO JUMPING
-		if (animator != null)
-			animator.SetBool("IsJumping", !isGrounded);
-		if (ninjaFrog != null && animator != null)
-			animator.SetFloat("yVelocity", ninjaFrog.linearVelocity.y);
-
-		if (Input.GetKeyDown(KeyCode.F) && isGrounded)
-        {
-            ThrowShuriken();
-			animator.SetTrigger("Throw");
-            Debug.Log("Ném dưới đất");
-        }
-	}
-
-	// ⭐ HÀM PHÁT ÂM THANH MỚI ⭐
-	private void PlayJumpSound()
-	{
-		if (audioSource != null && jumpSound != null)
-		{
-			// DÙNG PLAYONESHOT ĐỂ PHÁT ÂM THANH NHẢY
-			audioSource.PlayOneShot(jumpSound);
-		}
-	}
-	// ⭐ KẾT THÚC HÀM PHÁT ÂM THANH MỚI ⭐
-
-	private void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.CompareTag("Pickup"))
-		{
-			Destroy(other.gameObject);
-			count++;
-			Debug.Log("Picked up item, count = " + count);
-		}
-	}
-	public bool IsGrounded()
-	{
-		return isGrounded;
-	}
-
-	void ThrowShuriken()
+    void Start()
     {
+        originalScale = transform.localScale;
+        audioSource = GetComponent<AudioSource>();
+    }
 
-        // if (isGrounded)
-        // {
-        //     animator.SetTrigger("Throw");
-        //     Debug.Log("Ném dưới đất");
-        // }
-        // else
-        // {
-		// 	animator.ResetTrigger("Throw");
-        //     animator.SetTrigger("JumpThrow");
-        //     Debug.Log("Ném trên không");
-		// 	Debug.Log("IsGrounded = " + isGrounded);
-        // }
+    void Update()
+    {
+        CheckGround();
+        Move();
+        Jump();
+        Attack();
+        UpdateAnimator();
+    }
 
-        // --- LOGIC TẠO SHURIKEN ---
-        if (shurikenPrefab != null && firePoint != null)
+    // ================= GROUND =================
+    void CheckGround()
+    {
+        isGrounded = Physics2D.OverlapCircle(
+            groundCheck.position,
+            groundCheckRadius,
+            groundLayer
+        );
+
+        if (isGrounded)
+            doubleJump = false;
+    }
+
+    // ================= MOVE =================
+    void Move()
+    {
+        float move = Input.GetAxisRaw("Horizontal");
+
+        ninjaFrog.linearVelocity = new Vector2(move * speed, ninjaFrog.linearVelocity.y );
+        animator.SetFloat("xVelocity", Mathf.Abs(ninjaFrog.linearVelocity.x));
+		Debug.Log(move);
+
+        if (move > 0)
+            transform.localScale = new Vector3(Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
+        else if (move < 0)
+            transform.localScale = new Vector3(-Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
+    }
+
+    // ================= JUMP =================
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) ||Input.GetKeyDown(KeyCode.W) ||Input.GetKeyDown(KeyCode.UpArrow))
         {
-            GameObject shuriken = Instantiate(shurikenPrefab, firePoint.position, Quaternion.identity);
-
-            // BỎ QUA VA CHẠM GIỮA NGƯỜI CHƠI VÀ SHURIKEN
-            Collider2D shurikenCol = shuriken.GetComponent<Collider2D>();
-            Collider2D ownerCol = GetComponent<Collider2D>();
-            if (shurikenCol && ownerCol)
-                Physics2D.IgnoreCollision(shurikenCol, ownerCol);
-
-            // XÁC ĐỊNH HƯỚNG DỰA VÀO LOCALSCALE CỦA PLAYER
-            Shuriken shurikenScript = shuriken.GetComponent<Shuriken>();
-            if (shurikenScript != null)
+            if (isGrounded || !doubleJump)
             {
-                // NINJA FROG ĐIỀU KHIỂN HƯỚNG BẰNG LOCAL SCALE TRÊN TRỤC X
-                float dir = transform.localScale.x > 0 ? 1f : -1f;
-                shurikenScript.direction = new Vector2(dir, 0);
-            }
+                ninjaFrog.linearVelocity = new Vector2(ninjaFrog.linearVelocity.x, jumpForce); 
+                if (!isGrounded)
+                    doubleJump = true;
 
-            Destroy(shuriken, 6f);
+                PlayJumpSound();
+            }
         }
     }
 
+    // ================= ATTACK =================
+    void Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            //isAttacking = true;
+
+            if (isGrounded)
+			{
+				animator.SetTrigger("Throw");
+                animator.SetFloat("xVelocity", Mathf.Abs(ninjaFrog.linearVelocity.x));
+				Debug.Log("Throw");
+			}
+			else
+			{
+				animator.SetTrigger("JumpThrow");
+				Debug.Log("JumpThrow");
+			}
+
+            ThrowShuriken();
+        }
+    }
+
+    // ================= ANIMATOR =================
+    void UpdateAnimator()
+    {
+        // 🔥 LUÔN UPDATE JUMP
+        animator.SetBool("IsJumping", !isGrounded);
+        animator.SetFloat("yVelocity", ninjaFrog.linearVelocity.y);
+    }
+
+    // ================= SHURIKEN =================
+    void ThrowShuriken()
+    {
+        GameObject shuriken = Instantiate(shurikenPrefab, firePoint.position, Quaternion.identity);
+		// Bỏ qua va chạm giữa người chơi và shuriken
+		Collider2D shurikenCol = shuriken.GetComponent<Collider2D>();
+		Collider2D ownerCol = GetComponent<Collider2D>();
+		if (shurikenCol && ownerCol)
+			Physics2D.IgnoreCollision(shurikenCol, ownerCol);
+
+		// Xác định hướng dựa vào localScale của Player
+		Shuriken shurikenScript = shuriken.GetComponent<Shuriken>();
+		if (shurikenScript != null)
+		{
+			// ninjaFrog thường xoay theo transform của cha, ta lấy hướng từ đây
+			float dir = transform.localScale.x > 0 ? 1f : -1f;
+			shurikenScript.direction = new Vector2(dir, 0);
+		}
+
+		Destroy(shuriken, 6f);
+    }
+
+    // ================= AUDIO =================
+    void PlayJumpSound()
+    {
+        if (audioSource && jumpSound)
+            audioSource.PlayOneShot(jumpSound);
+    }
+
+    // ================= ANIMATION EVENT =================
+    // 👉 GẮN Ở FRAME CUỐI CLIP Throw & JumpThrow
+    public void EndAttack()
+    {
+        isAttacking = false;
+    }
 }
