@@ -24,9 +24,11 @@ public class PlayerController : MonoBehaviour
     [Header("Attack Settings")]
     public GameObject shurikenPrefab;
     public Transform firePoint;
+    [Header("Wall Slide Settings")]
+    //public float wallSlideSpeed = 2f;
+    private bool isOnWall;
 
     private Vector3 originalScale;
-    private bool isAttacking;
 
     void Start()
     {
@@ -38,19 +40,16 @@ public class PlayerController : MonoBehaviour
     {
         CheckGround();
         Move();
-        Jump();
         Attack();
+        Jump();
         UpdateAnimator();
+        HandleWallSlide();
     }
 
     // ================= GROUND =================
     void CheckGround()
     {
-        isGrounded = Physics2D.OverlapCircle(
-            groundCheck.position,
-            groundCheckRadius,
-            groundLayer
-        );
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,groundLayer);
 
         if (isGrounded)
             doubleJump = false;
@@ -71,6 +70,18 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(-Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
     }
 
+    // ================= ATTACK =================
+    void Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            animator.SetTrigger("Throw");
+            animator.SetFloat("xVelocity", Mathf.Abs(ninjaFrog.linearVelocity.x));
+            Debug.Log("Throw");
+            ThrowShuriken();
+        }
+    }
+
     // ================= JUMP =================
     void Jump()
     {
@@ -87,35 +98,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // ================= ATTACK =================
-    void Attack()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            //isAttacking = true;
-
-            if (isGrounded)
-			{
-				animator.SetTrigger("Throw");
-                animator.SetFloat("xVelocity", Mathf.Abs(ninjaFrog.linearVelocity.x));
-				Debug.Log("Throw");
-			}
-			else
-			{
-				animator.SetTrigger("JumpThrow");
-				Debug.Log("JumpThrow");
-			}
-
-            ThrowShuriken();
-        }
-    }
-
     // ================= ANIMATOR =================
     void UpdateAnimator()
     {
         // 🔥 LUÔN UPDATE JUMP
         animator.SetBool("IsJumping", !isGrounded);
-        animator.SetFloat("yVelocity", ninjaFrog.linearVelocity.y);
     }
 
     // ================= SHURIKEN =================
@@ -147,10 +134,35 @@ public class PlayerController : MonoBehaviour
             audioSource.PlayOneShot(jumpSound);
     }
 
-    // ================= ANIMATION EVENT =================
-    // 👉 GẮN Ở FRAME CUỐI CLIP Throw & JumpThrow
-    public void EndAttack()
+
+    // ================= ON WALL =================
+    void OnCollisionStay2D(Collision2D collision)
     {
-        isAttacking = false;
+        if (collision.collider.CompareTag("Wall"))
+        {
+            isOnWall = true;
+            animator.SetBool("WallJump", true);
+            Debug.Log("Va chạm Wall");
+            
+        }
     }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Wall"))
+        {
+            isOnWall = false;
+            animator.SetBool("WallJump", false);
+            Debug.Log("Rời khỏi Wall");
+        }
+    }
+
+    // ================= WALL SLIDE =================
+    void HandleWallSlide()
+    {
+        if (isOnWall && !isGrounded && ninjaFrog.linearVelocity.y < 0)
+        {
+            ninjaFrog.linearVelocity = new Vector2(ninjaFrog.linearVelocity.x, 0f);
+        }
+    }
+
 }
