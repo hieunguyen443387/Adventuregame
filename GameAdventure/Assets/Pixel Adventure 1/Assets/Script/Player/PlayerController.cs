@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
     [Header("Wall Slide Settings")]
     //public float wallSlideSpeed = 2f;
     private bool isOnWall;
-
     private Vector3 originalScale;
 
     void Start()
@@ -85,14 +84,21 @@ public class PlayerController : MonoBehaviour
     // ================= JUMP =================
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) ||Input.GetKeyDown(KeyCode.W) ||Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (isGrounded || !doubleJump)
+            // 1️⃣ Nhảy từ đất
+            if (isGrounded)
             {
-                ninjaFrog.linearVelocity = new Vector2(ninjaFrog.linearVelocity.x, jumpForce); 
-                if (!isGrounded)
-                    doubleJump = true;
+                ninjaFrog.linearVelocity = new Vector2( ninjaFrog.linearVelocity.x, jumpForce );
 
+                doubleJump = false;
+                PlayJumpSound();
+            }
+            // 2️⃣ Double jump (KHÔNG được ở tường)
+            else if (!doubleJump && !isOnWall)
+            {
+                ninjaFrog.linearVelocity = new Vector2( ninjaFrog.linearVelocity.x, jumpForce ); 
+                doubleJump = true;
                 PlayJumpSound();
             }
         }
@@ -101,7 +107,17 @@ public class PlayerController : MonoBehaviour
     // ================= ANIMATOR =================
     void UpdateAnimator()
     {
-        // 🔥 LUÔN UPDATE JUMP
+        if (isOnWall && !isGrounded)
+        {
+            animator.SetBool("IsJumping", false);
+            animator.SetBool("WallJump", true);
+            return;
+        }
+        if (isOnWall && isGrounded)
+        {
+            animator.SetBool("WallJump", false);
+            return;
+        }
         animator.SetBool("IsJumping", !isGrounded);
     }
 
@@ -141,7 +157,7 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Wall"))
         {
             isOnWall = true;
-            animator.SetBool("WallJump", true);
+            // animator.SetBool("WallJump", true);
             Debug.Log("Va chạm Wall");
             
         }
@@ -151,7 +167,7 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Wall"))
         {
             isOnWall = false;
-            animator.SetBool("WallJump", false);
+            //animator.SetBool("WallJump", false);
             Debug.Log("Rời khỏi Wall");
         }
     }
