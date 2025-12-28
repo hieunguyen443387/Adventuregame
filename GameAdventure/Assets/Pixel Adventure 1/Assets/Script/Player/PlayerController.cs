@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Settings")]
     public float speed = 5f;
-    public float jumpForce = 8f;
+    public float jumpForce = 15f;
+    // Multiplier applied to horizontal control when airborne (0-1)
+    public float airControlMultiplier = 10f;
     private bool doubleJump;
 
     [Header("Ground Check")]
@@ -28,6 +30,10 @@ public class PlayerController : MonoBehaviour
     //public float wallSlideSpeed = 2f;
     private bool isOnWall;
     private Vector3 originalScale;
+    [Header("Wall Jumping Settings")]
+    public float wallJumpForce = 8f;
+    public float wallJumpHorizontalForce = 100f;
+    private bool isWallJumping;
 
     void Start()
     {
@@ -59,9 +65,18 @@ public class PlayerController : MonoBehaviour
     {
         float move = Input.GetAxisRaw("Horizontal");
 
-        ninjaFrog.linearVelocity = new Vector2(move * speed, ninjaFrog.linearVelocity.y );
+        // 🟢 ĐANG Ở MẶT ĐẤT → set cứng
+        if (isGrounded)
+        {
+            ninjaFrog.linearVelocity = new Vector2(move * speed, ninjaFrog.linearVelocity.y );
+        }
+        // 🔵 TRÊN KHÔNG → cộng lực ngang
+        else
+        {
+            ninjaFrog.linearVelocity = new Vector2(move * 10f, ninjaFrog.linearVelocity.y );
+        }
+
         animator.SetFloat("xVelocity", Mathf.Abs(ninjaFrog.linearVelocity.x));
-		Debug.Log(move);
 
         if (move > 0)
             transform.localScale = new Vector3(Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
@@ -74,10 +89,12 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            animator.SetTrigger("Throw");
-            animator.SetFloat("xVelocity", Mathf.Abs(ninjaFrog.linearVelocity.x));
-            Debug.Log("Throw");
-            ThrowShuriken();
+            if (!isOnWall){
+                animator.SetTrigger("Throw");
+                animator.SetFloat("xVelocity", Mathf.Abs(ninjaFrog.linearVelocity.x));
+                Debug.Log("Throw");
+                ThrowShuriken();
+            }
         }
     }
 
@@ -92,33 +109,40 @@ public class PlayerController : MonoBehaviour
                 ninjaFrog.linearVelocity = new Vector2( ninjaFrog.linearVelocity.x, jumpForce );
 
                 doubleJump = false;
-                PlayJumpSound();
+                Debug.Log("Single Jump");
             }
             // 2️⃣ Double jump (KHÔNG được ở tường)
             else if (!doubleJump && !isOnWall)
             {
                 ninjaFrog.linearVelocity = new Vector2( ninjaFrog.linearVelocity.x, jumpForce ); 
                 doubleJump = true;
-                PlayJumpSound();
+                Debug.Log("Double Jump");
             }
+
+            // 3️⃣ Wall jump
+            else if (isOnWall)
+            {
+                isWallJumping = true;
+
+                // Đẩy người chơi ra khỏi tường
+                float wallDir = transform.localScale.x > 0 ? -1f : 1f; // Giả sử tường ở bên phải nếu localScale.x > 0
+                ninjaFrog.linearVelocity = new Vector2(wallDir * wallJumpHorizontalForce, wallJumpForce);
+                Debug.Log("Wall Jump");
+            }
+            PlayJumpSound();
         }
     }
 
     // ================= ANIMATOR =================
     void UpdateAnimator()
     {
-        if (isOnWall && !isGrounded)
-        {
-            animator.SetBool("IsJumping", false);
-            animator.SetBool("WallJump", true);
-            return;
-        }
-        if (isOnWall && isGrounded)
-        {
-            animator.SetBool("WallJump", false);
-            return;
-        }
-        animator.SetBool("IsJumping", !isGrounded);
+        // WallHold chỉ phụ thuộc vào việc đang ở tường (và không ở đất)
+        bool wallState = isOnWall && !isGrounded;
+
+        animator.SetBool("WallHold", wallState);
+
+        // Jump chỉ khi ở trên không và KHÔNG ở tường
+        animator.SetBool("IsJumping", !isGrounded && !wallState);
     }
 
     // ================= SHURIKEN =================
@@ -157,7 +181,7 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Wall"))
         {
             isOnWall = true;
-            // animator.SetBool("WallJump", true);
+            // animator.SetBool("WallHold", true);
             Debug.Log("Va chạm Wall");
             
         }
@@ -167,7 +191,7 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Wall"))
         {
             isOnWall = false;
-            //animator.SetBool("WallJump", false);
+            //animator.SetBool("WallHold", false);
             Debug.Log("Rời khỏi Wall");
         }
     }
