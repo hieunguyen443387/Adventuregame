@@ -48,6 +48,7 @@ public class RevivePlayer : MonoBehaviour
 
             Invoke(nameof(DoRespawn), respawnDelay);
         }
+        Debug.Log("RespawnPlayer called");
     }
 
     private void DoRespawn()

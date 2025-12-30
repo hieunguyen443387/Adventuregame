@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 5f;
+    public float speed = 15f;
     public Vector2 direction = Vector2.left;
+    public GameObject hitEffectPrefab;
+    public float effectDuration = 2f; // Thời gian effect tồn tại trước khi bị destroy
+    private bool hasHit = false; // Ngăn chặn trigger nhiều lần
 
     void Update()
     {
@@ -12,11 +15,26 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"Bullet hit: {collision.gameObject.name} (tag={collision.gameObject.tag})", this);
-        // Tự huỷ khi va chạm; nếu bạn muốn chỉ huỷ với target cụ thể,
-        // thay điều kiện bằng tag/layer phù hợp (ví dụ: if (collision.CompareTag("Player"))).
+        if (hasHit) return; // Thoát nếu đã va chạm
+        
+        Debug.Log("Bullet hit: " + collision.name);
         if (collision.gameObject.CompareTag("Player")){
+            hasHit = true;
+            
+            if (hitEffectPrefab != null)
+            {
+                GameObject effect = Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+                Debug.Log("Hit effect instantiated at: " + transform.position);
+                // Tự động destroy effect sau effectDuration giây
+                Destroy(effect, effectDuration);
+            }
+            else
+            {
+                Debug.LogWarning("hitEffectPrefab is not assigned on Bullet.", this);
+            }
+            
             Destroy(gameObject);
+            Debug.Log("Bullet destroyed after hitting player.");
         }
     }
 }
