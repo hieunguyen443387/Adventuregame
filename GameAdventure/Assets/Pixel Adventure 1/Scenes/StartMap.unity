@@ -1227,6 +1227,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 582444530}
   m_CullTransparentMesh: 1
+--- !u!4 &617556130 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 160630438645238314, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+  m_PrefabInstance: {fileID: 390016397624704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &651510614
 GameObject:
   m_ObjectHideFlags: 0
@@ -2531,6 +2536,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1255973383}
   m_CullTransparentMesh: 1
+--- !u!4 &1366380970 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5978835847136408976, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+  m_PrefabInstance: {fileID: 390016397624704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1450447882
 GameObject:
   m_ObjectHideFlags: 0
@@ -8664,6 +8674,66 @@ PrefabInstance:
     - target: {fileID: 933281733729891608, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1679090251505155686, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: fullHeart
+      value: 
+      objectReference: {fileID: 697759560652961679, guid: 3e044f935cdfa314a9e3445fbb4b4eff, type: 3}
+    - target: {fileID: 1679090251505155686, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: emptyHeart
+      value: 
+      objectReference: {fileID: 1463035206696969283, guid: eb76cb75c15eddb43a0b5ba81e4e65ec, type: 3}
+    - target: {fileID: 1679090251505155686, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: gameOverUI
+      value: 
+      objectReference: {fileID: 1255973383}
+    - target: {fileID: 1679090251505155686, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: quitGameUI
+      value: 
+      objectReference: {fileID: 1853963204}
+    - target: {fileID: 1679090251505155686, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: playAgainUI
+      value: 
+      objectReference: {fileID: 2002470551}
+    - target: {fileID: 1679090251505155686, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: gameOverDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1679090251505155686, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: gameOverSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8dc46457089f73748846d57712092d75, type: 3}
+    - target: {fileID: 1679090251505155686, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: hearts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1679090251505155686, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: 'hearts.Array.data[0]'
+      value: 
+      objectReference: {fileID: 582444532}
+    - target: {fileID: 1679090251505155686, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: 'hearts.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1167010206}
+    - target: {fileID: 1679090251505155686, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: 'hearts.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1785492046}
+    - target: {fileID: 1679090251505155686, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: backgroundMusicSource
+      value: 
+      objectReference: {fileID: 1939332197}
+    - target: {fileID: 2229154040568288295, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 617556130}
+    - target: {fileID: 2229154040568288295, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: groundCheck
+      value: 
+      objectReference: {fileID: 1366380970}
+    - target: {fileID: 2229154040568288295, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 2654923304288842403, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
       propertyPath: cinemachineCam
