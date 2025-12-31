@@ -8701,6 +8701,18 @@ PrefabInstance:
       propertyPath: cinemachineCam
       value: 
       objectReference: {fileID: 1959563174}
+    - target: {fileID: 4790150317377348878, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2dfff2c2cde1b0749862c548604e716d, type: 3}
+    - target: {fileID: 4790150317377348878, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: ninjaFrog
+      value: 
+      objectReference: {fileID: 1175218465289547040}
+    - target: {fileID: 4790150317377348878, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: cinemachineCam
+      value: 
+      objectReference: {fileID: 1959563174}
     - target: {fileID: 5605683834177181123, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.91
@@ -8741,6 +8753,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5767543800616819677, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: cinemachineCam
+      value: 
+      objectReference: {fileID: 1959563174}
     - target: {fileID: 8201697585078051443, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
       propertyPath: cinemachineCam
       value: 
@@ -8827,6 +8843,11 @@ PrefabInstance:
 --- !u!4 &1175218465289547033 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5605683834177181123, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+  m_PrefabInstance: {fileID: 390016397624704}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1175218465289547040 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 6848956498293317194, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
   m_PrefabInstance: {fileID: 390016397624704}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807

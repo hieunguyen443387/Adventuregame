@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: 8772099892344963347}
   - component: {fileID: 886532028304227177}
   - component: {fileID: 6531361205025321591}
-  - component: {fileID: 3612212757041022841}
-  - component: {fileID: 3251984966036797158}
+  - component: {fileID: 2229154040568288295}
+  - component: {fileID: 1679090251505155686}
+  - component: {fileID: -6436137553315786771}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -326,7 +327,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3612212757041022841
+--- !u!114 &2229154040568288295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -342,19 +343,19 @@ MonoBehaviour:
   animator: {fileID: 8772099892344963347}
   jumpSound: {fileID: 8300000, guid: f814743561b33c6468570fe14d0c478a, type: 3}
   speed: 5
-  jumpForce: 8
+  jumpForce: 15
   airControlMultiplier: 10
-  groundCheck: {fileID: 5978835847136408976}
+  groundCheck: {fileID: 5605683834177181123}
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   isGrounded: 0
   shurikenPrefab: {fileID: 6201221532740973952, guid: 8095232857d261a459291f7f7c3be2d7, type: 3}
-  firePoint: {fileID: 160630438645238314}
+  firePoint: {fileID: 0}
   wallJumpForce: 8
-  wallJumpHorizontalForce: 25
---- !u!114 &3251984966036797158
+  wallJumpHorizontalForce: 100
+--- !u!114 &1679090251505155686
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -368,18 +369,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   currentHealth: 0
-  hearts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  fullHeart: {fileID: 697759560652961679, guid: 3e044f935cdfa314a9e3445fbb4b4eff, type: 3}
-  emptyHeart: {fileID: 1463035206696969283, guid: eb76cb75c15eddb43a0b5ba81e4e65ec, type: 3}
-  gameOverSound: {fileID: 8300000, guid: ca36ddf30f8502d4c8a405ceecdce24a, type: 3}
+  hearts: []
+  fullHeart: {fileID: 0}
+  emptyHeart: {fileID: 0}
+  gameOverSound: {fileID: 0}
   backgroundMusicSource: {fileID: 0}
   gameOverUI: {fileID: 0}
   playAgainUI: {fileID: 0}
   quitGameUI: {fileID: 0}
   gameOverDelay: 0.2
+--- !u!114 &-6436137553315786771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933281733729891608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7cfbd50b4ba2fe468b9a97cd1d5160e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHearts: 3
+  ninjaFrog: {fileID: 6848956498293317194}
+  hitSound: {fileID: 8300000, guid: 2dfff2c2cde1b0749862c548604e716d, type: 3}
+  cinemachineCam: {fileID: 0}
 --- !u!1 &3209184860581863544
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
-    private RevivePlayer revivePlayer;
+    //private RevivePlayer revivePlayer;
     
     [Header("Audio Settings")]
     public AudioClip gameOverSound; // File âm thanh game over
@@ -47,7 +47,7 @@ public class PlayerHealth : MonoBehaviour
         // ⭐ KẾT THÚC KIỂM TRA ⭐
 
         currentHealth = maxHealth;
-        revivePlayer = GetComponent<RevivePlayer>();
+        //revivePlayer = GetComponent<RevivePlayer>();
         UpdateHeartsUI();
 
         if (gameOverUI != null && playAgainUI != null && quitGameUI != null)
@@ -69,8 +69,8 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth > 0)
         {
-            if (revivePlayer != null)
-                revivePlayer.RespawnPlayer();
+            // if (revivePlayer != null)
+            //     revivePlayer.RespawnPlayer();
         }
         else
         {
