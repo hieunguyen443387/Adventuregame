@@ -20,8 +20,8 @@ public class GameOverManager : MonoBehaviour
     public GameObject playAgainUI;
     [Header("Quit Game UI")]
     public GameObject quitGameUI;
-    [Header("Game Over Panel")]
-    public GameObject gameOverPanel;
+    // [Header("Game Over Panel")]
+    // public GameObject gameOverPanel;
 
     [Header("Delay before Game Over (seconds)")]
     public float gameOverDelay = 0.2f; // Thời gian chờ sau khi chết
@@ -48,7 +48,7 @@ public class GameOverManager : MonoBehaviour
             gameOverUI.SetActive(false);
             playAgainUI.SetActive(false);
             quitGameUI.SetActive(false);
-            gameOverPanel.SetActive(false);
+           // gameOverPanel.SetActive(false);
         }
 
         Time.timeScale = 1f;
@@ -77,7 +77,7 @@ public class GameOverManager : MonoBehaviour
             gameOverUI.SetActive(true);
             playAgainUI.SetActive(true);
             quitGameUI.SetActive(true);
-            gameOverPanel.SetActive(true);
+            //gameOverPanel.SetActive(true);
             PlayGameOverSound();
         }
 
