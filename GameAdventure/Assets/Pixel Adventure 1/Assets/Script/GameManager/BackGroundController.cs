@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BackGrounfController : MonoBehaviour
+public class BackGroundController : MonoBehaviour
 {
     private float startPos, length;
     public GameObject cam;

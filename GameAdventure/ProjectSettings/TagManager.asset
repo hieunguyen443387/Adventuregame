@@ -10,11 +10,12 @@ TagManager:
   - Boundary
   - Enemy
   - Wall
+  - Shuriken
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
   - Ground

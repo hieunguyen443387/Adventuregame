@@ -13,9 +13,12 @@ public class RinoMovement : MonoBehaviour
     public float acceleration = 15f;
     public float detectRange = 8f;
 
+    [Header("Vision")]
+    public LayerMask wallLayer;   // 👈 layer của tường
+
     [Header("After Hit Settings")]
-    public float inertiaTime = 0.4f;   // chạy quán tính sau khi húc trượt
-    public float pauseAfterHit = 2f;   // đứng yên trước khi đuổi tiếp
+    public float inertiaTime = 0.4f;
+    public float pauseAfterHit = 2f;
 
     private float currentSpeed = 0f;
     private int direction = 1;
@@ -42,15 +45,16 @@ public class RinoMovement : MonoBehaviour
         if (isPaused || player == null)
         {
             Rino.linearVelocity = Vector2.zero;
-            animator.SetFloat("Speed", 0f);
+            animator.SetFloat("xVelocity", 0f);
             return;
         }
 
         float distance = Vector2.Distance(transform.position, player.position);
 
-        if (distance <= detectRange)
+        // ❌ Player trong range nhưng bị tường che → KHÔNG đuổi
+        if (distance <= detectRange && CanSeePlayer())
         {
-            HandleDirection();   // ⭐ FIX flip loạn ở đây
+            HandleDirection();
             Move();
         }
         else
@@ -59,11 +63,24 @@ public class RinoMovement : MonoBehaviour
         }
     }
 
+    // ================= VISION =================
+
+    bool CanSeePlayer()
+    {
+        Vector2 origin = transform.position;
+        Vector2 target = player.position;
+        Vector2 dir = target - origin;
+
+        RaycastHit2D hit = Physics2D.Raycast( origin, dir.normalized, detectRange, wallLayer );
+
+        // Nếu ray đụng tường trước → không thấy player
+        return hit.collider == null;
+    }
+
     // ================= CORE =================
 
     void HandleDirection()
     {
-        // ⭐ CHỈ ĐỔI HƯỚNG KHI PLAYER ĐANG Ở MẶT ĐẤT
         PlayerController pc = player.GetComponent<PlayerController>();
         if (pc != null && !pc.isGrounded) return;
 
@@ -78,21 +95,17 @@ public class RinoMovement : MonoBehaviour
 
     void Move()
     {
-        currentSpeed = Mathf.MoveTowards(
-            currentSpeed,
-            maxSpeed,
-            acceleration * Time.fixedDeltaTime
-        );
+        currentSpeed = Mathf.MoveTowards( currentSpeed, maxSpeed, acceleration * Time.fixedDeltaTime ); 
 
         Rino.linearVelocity = new Vector2(direction * currentSpeed, Rino.linearVelocity.y);
-        animator.SetFloat("Speed", Mathf.Abs(Rino.linearVelocity.x));
+        animator.SetFloat("xVelocity", Mathf.Abs(Rino.linearVelocity.x));
     }
 
     void StopMove()
     {
         currentSpeed = 0;
         Rino.linearVelocity = new Vector2(0, Rino.linearVelocity.y);
-        animator.SetFloat("Speed", 0f);
+        animator.SetFloat("xVelocity", 0f);
     }
 
     void Flip()
@@ -103,30 +116,29 @@ public class RinoMovement : MonoBehaviour
         transform.localScale = scale;
     }
 
-    // ================= HIT / INERTIA =================
+    // ================= HIT =================
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player")) return;
+        if (collision.CompareTag("Player"))
+        {
+            if (hitRoutine != null)
+                StopCoroutine(hitRoutine);
+            hitRoutine = StartCoroutine(HitBehaviour());
+        }
 
-        if (hitRoutine != null)
-            StopCoroutine(hitRoutine);
-
-        hitRoutine = StartCoroutine(HitBehaviour());
+        if (collision.CompareTag("Wall"))
+            animator.SetTrigger("HitWall");
     }
 
     IEnumerator HitBehaviour()
     {
-        // 🟡 chạy quán tính
-        isPaused = false;
         yield return new WaitForSeconds(inertiaTime);
 
-        // 🔴 đứng yên
         isPaused = true;
         Rino.linearVelocity = Vector2.zero;
-        animator.SetFloat("Speed", 0f);
+        animator.SetFloat("xVelocity", 0f);
 
-        // ⏳ chờ 2s rồi đuổi tiếp
         yield return new WaitForSeconds(pauseAfterHit);
 
         isPaused = false;

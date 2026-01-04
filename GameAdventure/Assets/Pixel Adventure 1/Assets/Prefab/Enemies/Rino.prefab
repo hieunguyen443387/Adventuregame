@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 106630001936485111}
   - component: {fileID: 7289667098556886758}
   - component: {fileID: 4855890352056002917}
-  - component: {fileID: 2006428296107109540}
   m_Layer: 0
   m_Name: Rino
   m_TagString: Enemy
@@ -233,24 +232,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2006428296107109540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2254498597201232658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48b4d8639049f4e4fac0abf0d2258567, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  Rino: {fileID: 2375580896937313596}
-  animator: {fileID: 4855890352056002917}
-  revivePlayer: {fileID: 0}
-  maxSpeed: 10
-  acceleration: 15
-  pauseTime: 0.5
-  detectRange: 8
-  returnRange: 12
