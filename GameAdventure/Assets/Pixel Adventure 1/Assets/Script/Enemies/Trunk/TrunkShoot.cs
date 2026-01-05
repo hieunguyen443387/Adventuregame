@@ -9,9 +9,12 @@ public class TrunkShoot : MonoBehaviour
 
     [Header("Detect Settings")]
     public float detectRange = 8f;
+    public float maxVerticalDiff = 1f; // chỉ phát hiện khi player cùng mức ngang
 
     [Header("Attack Timing")]
     public float shootInterval = 2f;
+    [Header("Vision")]
+    public LayerMask wallLayer;   // 👈 layer của tường
 
     private float timer;
     private Animator animator;
@@ -19,6 +22,8 @@ public class TrunkShoot : MonoBehaviour
 
     private bool isFacingRight = false;
     private bool playerDetected = false;
+    private PlayerController playerController;
+    private PlayerHealth playerHealth;
 
     void Start()
     {
@@ -32,15 +37,30 @@ public class TrunkShoot : MonoBehaviour
             if (playerObj != null)
                 player = playerObj.transform;
         }
+
+        if (player != null)
+        {
+            playerController = player.GetComponent<PlayerController>();
+            playerHealth = player.GetComponent<PlayerHealth>();
+        }
     }
 
     void Update()
     {
         if (player == null) return;
 
-        float distance = Vector2.Distance(transform.position, player.position);
+        if (playerHealth != null && playerHealth.currentHealth <= 0)
+        {
+            playerDetected = false;
+            timer = 0f;
+            return;
+        }
 
-        if (distance <= detectRange)
+        float distance = Vector2.Distance(transform.position, player.position);
+        float verticalDiff = Mathf.Abs(player.position.y - transform.position.y);
+
+        // Nếu player trong range, cùng mức ngang (không quá cao/thấp) và không bị tường che thì phát hiện
+        if (distance <= detectRange && verticalDiff <= maxVerticalDiff && CanSeePlayer())
         {
             playerDetected = true;
             HandleFlip();
@@ -57,6 +77,20 @@ public class TrunkShoot : MonoBehaviour
             playerDetected = false;
             timer = 0f;
         }
+    }
+
+    bool CanSeePlayer()
+    {
+        if (player == null) return false;
+
+        Vector2 origin = transform.position;
+        Vector2 target = player.position;
+        Vector2 dir = target - origin;
+
+        RaycastHit2D hit = Physics2D.Raycast(origin, dir.normalized, detectRange, wallLayer);
+
+        // Nếu ray chạm tường trước player => không thấy player
+        return hit.collider == null;
     }
 
     void HandleFlip()
@@ -81,13 +115,10 @@ public class TrunkShoot : MonoBehaviour
     public void Shoot()
     {
         if (!playerDetected) return;
+        if (playerHealth != null && playerHealth.currentHealth <= 0) return;
         if (bulletPrefab == null || firePoint == null) return;
 
-        GameObject bullet = Instantiate(
-            bulletPrefab,
-            firePoint.position,
-            Quaternion.identity
-        );
+        GameObject bullet = Instantiate( bulletPrefab, firePoint.position, Quaternion.identity ); 
 
         Collider2D bulletCol = bullet.GetComponent<Collider2D>();
         if (bulletCol != null && ownerCol != null)

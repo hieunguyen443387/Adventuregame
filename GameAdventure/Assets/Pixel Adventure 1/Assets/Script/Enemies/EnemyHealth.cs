@@ -25,7 +25,7 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        animator.SetTrigger("Hit"); // chỉ chạy animation
+        animator.SetTrigger("Die"); // chỉ chạy animation
     }
 
     // 👇 HÀM NÀY SẼ ĐƯỢC GỌI TỪ ANIMATION EVENT

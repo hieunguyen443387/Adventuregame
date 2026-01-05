@@ -22,20 +22,20 @@ public class PlayerHit : MonoBehaviour
      [Header("Audio Settings")]
 	public AudioClip hitSound; // File âm thanh 
     private AudioSource audioSource;
+    private PlayerController playerController;
+
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            Debug.LogError("PlayerController cần AudioSource component!");
-        }
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
         currentHearts = maxHearts;
-        // ✅ Tự động tìm Cinemachine camera nếu chưa gán 
-        if (cinemachineCam == null) 
+
+        playerController = GetComponent<PlayerController>(); // ✅ THÊM
+
+        if (cinemachineCam == null)
             cinemachineCam = FindAnyObjectByType<CinemachineCamera>();
     }
 
