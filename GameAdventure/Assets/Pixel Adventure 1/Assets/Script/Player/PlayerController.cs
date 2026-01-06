@@ -92,13 +92,35 @@ public class PlayerController : MonoBehaviour
     // ================= ATTACK =================
     void Attack()
     {
+        // 🔴 Bắn ngang (F)
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (!isOnWall){
                 animator.SetTrigger("Throw");
                 animator.SetFloat("xVelocity", Mathf.Abs(ninjaFrog.linearVelocity.x));
-                Debug.Log("Throw");
-                ThrowShuriken();
+                Debug.Log("Throw Horizontal");
+                float dir = transform.localScale.x > 0 ? 1f : -1f;
+                ThrowShuriken(new Vector2(dir, 0));
+            }
+        }
+        
+        // 🔵 Bắn lên trên (E)
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!isOnWall){
+                animator.SetTrigger("Throw");
+                Debug.Log("Throw Up");
+                ThrowShuriken(new Vector2(0, 1));
+            }
+        }
+        
+        // 🟢 Bắn xuống dưới (Q)
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (!isOnWall){
+                animator.SetTrigger("Throw");
+                Debug.Log("Throw Down");
+                ThrowShuriken(new Vector2(0, -1));
             }
         }
     }
@@ -151,7 +173,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // ================= SHURIKEN =================
-    void ThrowShuriken()
+    void ThrowShuriken(Vector2 shootDirection)
     {
         GameObject shuriken = Instantiate(shurikenPrefab, firePoint.position, Quaternion.identity);
 		// Bỏ qua va chạm giữa người chơi và shuriken
@@ -160,13 +182,11 @@ public class PlayerController : MonoBehaviour
 		if (shurikenCol && ownerCol)
 			Physics2D.IgnoreCollision(shurikenCol, ownerCol);
 
-		// Xác định hướng dựa vào localScale của Player
+		// Xác định hướng bắn
 		Shuriken shurikenScript = shuriken.GetComponent<Shuriken>();
 		if (shurikenScript != null)
 		{
-			// ninjaFrog thường xoay theo transform của cha, ta lấy hướng từ đây
-			float dir = transform.localScale.x > 0 ? 1f : -1f;
-			shurikenScript.direction = new Vector2(dir, 0);
+			shurikenScript.direction = shootDirection;
 		}
 
 		Destroy(shuriken, 6f);
