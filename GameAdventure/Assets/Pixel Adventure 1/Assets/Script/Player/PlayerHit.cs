@@ -7,7 +7,7 @@ public class PlayerHit : MonoBehaviour
 {
     [Header("Player Stats")]
     public int maxHearts = 3;
-    private int currentHearts;
+    public int currentHearts;
     [Header("Death Effects")]
     public float knockbackForceX = 6f;
     public float knockbackForceY = 10f;
@@ -23,6 +23,8 @@ public class PlayerHit : MonoBehaviour
 	public AudioClip hitSound; // File âm thanh 
     private AudioSource audioSource;
     private PlayerController playerController;
+    public bool IsOutOfHearts => currentHearts <= 0;
+
 
 
     void Start()
@@ -65,10 +67,11 @@ public class PlayerHit : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Trap") || other.CompareTag("Enemy"))
+        if (other.CompareTag("Trap") || other.CompareTag("Enemy") || other.CompareTag("DeadZone") || other.CompareTag("Spike"))
         {
             TakeDamage();
             animator.SetTrigger("Hit");
+            animator.SetBool("IsJumping", false);
             PlayHitSound();
             GetComponent<PlayerHealth>()?.TakeDamage(1);
             Debug.Log("Player hit a trap!");

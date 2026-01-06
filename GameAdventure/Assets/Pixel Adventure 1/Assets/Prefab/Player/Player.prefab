@@ -343,18 +343,18 @@ MonoBehaviour:
   animator: {fileID: 8772099892344963347}
   jumpSound: {fileID: 8300000, guid: f814743561b33c6468570fe14d0c478a, type: 3}
   speed: 5
-  jumpForce: 15
+  jumpForce: 8
   airControlMultiplier: 10
-  groundCheck: {fileID: 5605683834177181123}
+  groundCheck: {fileID: 5978835847136408976}
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   isGrounded: 0
   shurikenPrefab: {fileID: 6201221532740973952, guid: 8095232857d261a459291f7f7c3be2d7, type: 3}
-  firePoint: {fileID: 0}
-  wallJumpForce: 8
-  wallJumpHorizontalForce: 100
+  firePoint: {fileID: 160630438645238314}
+  wallJumpForce: 10
+  wallJumpHorizontalForce: 10
 --- !u!114 &1679090251505155686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,15 +369,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   currentHealth: 0
-  hearts: []
-  fullHeart: {fileID: 0}
-  emptyHeart: {fileID: 0}
-  gameOverSound: {fileID: 0}
-  backgroundMusicSource: {fileID: 0}
-  gameOverUI: {fileID: 0}
-  playAgainUI: {fileID: 0}
-  quitGameUI: {fileID: 0}
-  gameOverDelay: 0.2
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fullHeart: {fileID: 697759560652961679, guid: 3e044f935cdfa314a9e3445fbb4b4eff, type: 3}
+  emptyHeart: {fileID: 1463035206696969283, guid: eb76cb75c15eddb43a0b5ba81e4e65ec, type: 3}
 --- !u!114 &-6436137553315786771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,9 +388,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHearts: 3
+  knockbackForceX: 6
+  knockbackForceY: 10
+  spinSpeed: 720
   ninjaFrog: {fileID: 6848956498293317194}
-  hitSound: {fileID: 8300000, guid: 2dfff2c2cde1b0749862c548604e716d, type: 3}
   cinemachineCam: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 2dfff2c2cde1b0749862c548604e716d, type: 3}
 --- !u!1 &3209184860581863544
 GameObject:
   m_ObjectHideFlags: 0

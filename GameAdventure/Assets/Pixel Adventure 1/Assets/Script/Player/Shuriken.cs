@@ -17,6 +17,11 @@ public class Shuriken : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.CompareTag("Wall") || other.CompareTag("Ground"))
+        {
+            Destroy(gameObject); // shuriken biến mất khi chạm tường
+            return;
+        }
         // kiểm tra enemy có EnemyHealth không
         EnemyHealth enemy = other.GetComponent<EnemyHealth>();
         if (enemy != null)

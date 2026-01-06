@@ -11,6 +11,8 @@ TagManager:
   - Enemy
   - Wall
   - Shuriken
+  - DeadZone
+  - Spike
   layers:
   - Default
   - TransparentFX

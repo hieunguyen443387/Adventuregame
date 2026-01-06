@@ -43,6 +43,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // ❌ Nếu player đã chết → không cho controller can thiệp animator
+        if (GetComponent<RevivePlayer>()?.IsDead == true)
+            return;
+
         CheckGround();
         Move();
         Attack();
@@ -50,6 +54,7 @@ public class PlayerController : MonoBehaviour
         UpdateAnimator();
         HandleWallSlide();
     }
+
 
     // ================= GROUND =================
     void CheckGround()
