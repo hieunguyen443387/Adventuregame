@@ -43,7 +43,7 @@ public class RevivePlayer : MonoBehaviour
         if (cinemachineCam != null)
             cinemachineCam.Follow = null;
 
-        animator.Play("Die");
+        animator.SetTrigger("Die");
     }
 
     // =======================

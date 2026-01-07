@@ -31,10 +31,10 @@ public class GameOverManager : MonoBehaviour
     {
         playerHealth = FindObjectOfType<PlayerHealth>();
         audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            Debug.LogError("PlayerController cần AudioSource component!");
-        }
+        // if (audioSource == null)
+        // {
+        //     Debug.LogError("PlayerController cần AudioSource component!");
+        // }
         
         // ⭐ KIỂM TRA THAM CHIẾU NHẠC NỀN ⭐
         if (backgroundMusicSource == null)

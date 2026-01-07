@@ -563,13 +563,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1966493176}
+  attackHitbox: {fileID: 341843946}
   detectRange: 8
   maxVerticalDiff: 1
   attackInterval: 1.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
-  attackHitbox: {fileID: 341843946}
 --- !u!1 &181675710
 GameObject:
   m_ObjectHideFlags: 0
@@ -5415,6 +5415,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 6
   animator: {fileID: 836159477}
+--- !u!114 &836159488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836159474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1073ab850ab478f488dd1850440352cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cinemachineCam: {fileID: 1481823469}
 --- !u!1 &875337298
 GameObject:
   m_ObjectHideFlags: 0
@@ -10781,7 +10794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2254498597201232658, guid: c5d84456a2004954b8257af701f4d5b9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3940666800587293429, guid: c5d84456a2004954b8257af701f4d5b9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11082,7 +11095,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 933281733729891608, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1966493177}
+      addedObject: {fileID: 1966493186}
   m_SourcePrefab: {fileID: 100100000, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
 --- !u!1001 &1716837055
 PrefabInstance:
@@ -11596,6 +11609,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1330900052510861806, guid: 0c4f0bf59af624044879a97aa04d8727, type: 3}
       insertIndex: -1
       addedObject: {fileID: 836159482}
+    - targetCorrespondingSourceObject: {fileID: 1330900052510861806, guid: 0c4f0bf59af624044879a97aa04d8727, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 836159488}
   m_SourcePrefab: {fileID: 100100000, guid: 0c4f0bf59af624044879a97aa04d8727, type: 3}
 --- !u!82 &1966493168 stripped
 AudioSource:
@@ -11607,7 +11623,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5605683834177181123, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
   m_PrefabInstance: {fileID: 1682650164}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1966493177
+--- !u!114 &1966493186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

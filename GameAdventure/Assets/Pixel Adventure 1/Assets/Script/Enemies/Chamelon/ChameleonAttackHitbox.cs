@@ -6,12 +6,4 @@ public class ChameleonAttackHitbox : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            other.GetComponent<PlayerHit>()?.TakeDamage();
-        }
-    }
 }

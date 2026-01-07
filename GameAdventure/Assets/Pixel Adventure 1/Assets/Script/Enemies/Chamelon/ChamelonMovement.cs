@@ -4,104 +4,94 @@ public class ChameleonAttack : MonoBehaviour
 {
     [Header("References")]
     public Transform player;
+    public GameObject attackHitbox;
 
     [Header("Detect Settings")]
     public float detectRange = 3f;
-    public float maxVerticalDiff = 1f; // chỉ tấn công khi cùng độ cao
+    public float maxVerticalDiff = 1f;
 
     [Header("Attack Timing")]
     public float attackInterval = 1.5f;
 
     [Header("Vision")]
-    public LayerMask wallLayer;   // layer của tường (che tầm nhìn)
+    public LayerMask wallLayer;
 
-    private float timer;
     private Animator animator;
+    private float timer;
     private bool isFacingRight = false;
     private bool playerDetected = false;
 
     private PlayerHealth playerHealth;
-    public GameObject attackHitbox;
+    private bool isAttacking = false;
+
 
     void Start()
     {
         animator = GetComponent<Animator>();
 
-        // 🔍 Tự tìm Player
         if (player == null)
         {
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-            if (playerObj != null)
-                player = playerObj.transform;
+            GameObject obj = GameObject.FindGameObjectWithTag("Player");
+            if (obj != null) player = obj.transform;
         }
 
         if (player != null)
             playerHealth = player.GetComponent<PlayerHealth>();
+
+        // ⚠ Luôn tắt hitbox khi start
+        if (attackHitbox != null)
+            attackHitbox.SetActive(false);
     }
 
     void Update()
     {
-        if (player == null) return;
-
-        // ❌ Player chết → không tấn công
-        if (playerHealth != null && playerHealth.currentHealth <= 0)
-        {
-            playerDetected = false;
-            timer = 0f;
-            animator.SetBool("PlayerDetected", false);
-            return;
-        }
-
+        if (player == null || playerHealth == null) return;
         float distance = Vector2.Distance(transform.position, player.position);
         float verticalDiff = Mathf.Abs(player.position.y - transform.position.y);
 
-        if (distance <= detectRange &&
-            verticalDiff <= maxVerticalDiff &&
-            CanSeePlayer())
+        // ❌ Player chết → STOP TẤT CẢ
+        if (distance <= detectRange && verticalDiff <= maxVerticalDiff && CanSeePlayer())
         {
             playerDetected = true;
-            animator.SetBool("PlayerDetected", true);
-
             HandleFlip();
 
-            timer += Time.deltaTime;
-            if (timer >= attackInterval)
+            if (!isAttacking)
             {
-                animator.SetTrigger("Attack");
-                timer = 0f;
+                timer += Time.deltaTime;
+                if (timer >= attackInterval)
+                {
+                    isAttacking = true;
+                    animator.SetTrigger("Attack");
+                    timer = 0f;
+                }
             }
         }
         else
         {
-            playerDetected = false;
-            timer = 0f;
-            animator.SetBool("PlayerDetected", false);
+            ResetAttack();
         }
+
     }
 
-    // ======================
-    // CHECK LINE OF SIGHT
-    // ======================
+    void ResetAttack()
+    {
+        playerDetected = false;
+        timer = 0f;
+
+        if (attackHitbox != null)
+            attackHitbox.SetActive(false);
+    }
+
     bool CanSeePlayer()
     {
         Vector2 origin = transform.position;
-        Vector2 target = player.position;
-        Vector2 dir = target - origin;
+        Vector2 dir = player.position - transform.position;
 
-        RaycastHit2D hit = Physics2D.Raycast(
-            origin,
-            dir.normalized,
-            detectRange,
-            wallLayer
-        );
+        RaycastHit2D hit = Physics2D.Raycast( origin, dir.normalized, detectRange, wallLayer );
 
-        // Nếu ray không chạm tường trước player → thấy player
         return hit.collider == null;
     }
 
-    // ======================
-    // FLIP THE CHAMELEON
-    // ======================
     void HandleFlip()
     {
         float xDiff = player.position.x - transform.position.x;
@@ -115,30 +105,29 @@ public class ChameleonAttack : MonoBehaviour
     void Flip()
     {
         isFacingRight = !isFacingRight;
-
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
     }
 
     // ======================
-    // ATTACK HIT (ANIM EVENT)
+    // ANIMATION EVENTS
     // ======================
-    // 👉 GỌI Ở FRAME ĐÁNH TRÚNG
-    public void DealDamage()
+
+    // 👉 Frame đánh trúng
+    public void EnableAttackHitbox()
     {
         if (!playerDetected) return;
-        if (playerHealth == null) return;
+        if (playerHealth.currentHealth <= 0) return;
 
-        playerHealth.TakeDamage(1);
+        attackHitbox.SetActive(true);
     }
 
-    public void Attack()
+    // 👉 Frame kết thúc đánh
+    public void DisableAttackHitbox()
     {
-        if (!playerDetected) return;
-        if (playerHealth != null && playerHealth.currentHealth <= 0) return;
-
-        animator.SetTrigger("Attack");
+        attackHitbox.SetActive(false);
+        isAttacking = false;
     }
 
     // ======================
@@ -148,14 +137,5 @@ public class ChameleonAttack : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectRange);
-    }
-    public void EnableAttackHitbox()
-    {
-        attackHitbox.SetActive(true);
-    }
-
-    public void DisableAttackHitbox()
-    {
-        attackHitbox.SetActive(false);
     }
 }

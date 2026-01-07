@@ -74,7 +74,7 @@ public class PlayerHit : MonoBehaviour
             animator.SetBool("IsJumping", false);
             PlayHitSound();
             GetComponent<PlayerHealth>()?.TakeDamage(1);
-            Debug.Log("Player hit a trap!");
+            Debug.Log("Player was hit by " + other.tag);
         }
     }
 
