@@ -11,7 +11,7 @@ public class GameOverManager : MonoBehaviour
 
     // ⭐ THÊM BIẾN THAM CHIẾU NHẠC NỀN ⭐
     [Header("Music Settings")]
-    public AudioSource backgroundMusicSource; // Kéo thả AudioSource của MusicBackground vào đây
+    public AudioClip backgroundMusicSource; // Kéo thả AudioSource của MusicBackground vào đây
     // ⭐ KẾT THÚC THÊM BIẾN ⭐
 
     [Header("Game Over UI")]
