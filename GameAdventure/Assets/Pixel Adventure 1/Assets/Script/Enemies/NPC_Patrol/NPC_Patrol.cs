@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class RockMovement : MonoBehaviour
+public class NPC_Patrol : MonoBehaviour
 {
     public float speed = 2f;
     public float moveDistance = 3f;
 
-    public Rigidbody2D rock;
+    public Rigidbody2D npc;
     public Animator animator;
 
     private Vector2 startPos;
@@ -13,24 +13,23 @@ public class RockMovement : MonoBehaviour
 
     void Start()
     {
-        startPos = rock.position;
+        startPos = npc.position;
     }
 
     void Update()
     {
         // Di chuyển
-        rock.linearVelocity = new Vector2(direction * speed, rock.linearVelocity.y);
+        npc.linearVelocity = new Vector2(direction * speed, npc.linearVelocity.y);
 
         // Update animation
-        animator.SetFloat("xVelocity", Mathf.Abs(rock.linearVelocity.x));
-
+        animator.SetFloat("xVelocity", Mathf.Abs(npc.linearVelocity.x));
         // Giới hạn trái / phải
-        if (rock.position.x >= startPos.x + moveDistance)
+        if (npc.position.x >= startPos.x + moveDistance)
         {
             direction = -1;
             Flip();
         }
-        else if (rock.position.x <= startPos.x - moveDistance)
+        else if (npc.position.x <= startPos.x - moveDistance)
         {
             direction = 1;
             Flip();

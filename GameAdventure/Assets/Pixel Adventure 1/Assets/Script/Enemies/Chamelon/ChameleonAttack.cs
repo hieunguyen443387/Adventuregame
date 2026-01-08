@@ -5,6 +5,7 @@ public class ChameleonAttack : MonoBehaviour
     [Header("References")]
     public Transform player;
     public GameObject attackHitbox;
+    public Rigidbody2D chameleon;
 
     [Header("Detect Settings")]
     public float detectRange = 3f;
@@ -15,11 +16,16 @@ public class ChameleonAttack : MonoBehaviour
 
     [Header("Vision")]
     public LayerMask wallLayer;
+    [Header("Movement")]
+    public float speed = 2f;
+    public float moveDistance = 3f;
+    private Vector2 startPos;
 
     private Animator animator;
     private float timer;
     private bool isFacingRight = false;
     private bool playerDetected = false;
+    private int direction = 1; // 1 = phải, -1 = trái
 
     private PlayerHealth playerHealth;
     private bool isAttacking = false;
@@ -28,6 +34,7 @@ public class ChameleonAttack : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        startPos = chameleon.position;
 
         if (player == null)
         {
@@ -45,6 +52,7 @@ public class ChameleonAttack : MonoBehaviour
 
     void Update()
     {
+        Move();
         if (player == null || playerHealth == null) return;
         float distance = Vector2.Distance(transform.position, player.position);
         float verticalDiff = Mathf.Abs(player.position.y - transform.position.y);
@@ -73,6 +81,33 @@ public class ChameleonAttack : MonoBehaviour
 
     }
 
+    void Move()
+    {
+        if (playerDetected)
+        {
+            // Nếu phát hiện player thì dừng di chuyển
+            animator.SetFloat("xVelocity", 0);
+            return;
+        }
+        // Di chuyển
+        chameleon.linearVelocity = new Vector2(direction * speed, chameleon.linearVelocity.y);
+
+        // Update animation
+        animator.SetFloat("xVelocity", Mathf.Abs(chameleon.linearVelocity.x));
+
+        // Giới hạn trái / phải
+        if (chameleon.position.x >= startPos.x + moveDistance)
+        {
+            direction = -1;
+            if (!isFacingRight) Flip();
+        }
+        else if (chameleon.position.x <= startPos.x - moveDistance)
+        {
+            direction = 1;
+            if (isFacingRight) Flip();
+        }
+    }
+
     void ResetAttack()
     {
         playerDetected = false;
@@ -96,9 +131,9 @@ public class ChameleonAttack : MonoBehaviour
     {
         float xDiff = player.position.x - transform.position.x;
 
-        if (xDiff > 0 && !isFacingRight)
+        if (xDiff > 0 && isFacingRight)
             Flip();
-        else if (xDiff < 0 && isFacingRight)
+        else if (xDiff < 0 && !isFacingRight)
             Flip();
     }
 
@@ -109,6 +144,7 @@ public class ChameleonAttack : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
     }
+
 
     // ======================
     // ANIMATION EVENTS

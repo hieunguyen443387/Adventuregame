@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TrunkShoot : MonoBehaviour
+public class NPC_RangeAttack : MonoBehaviour
 {
     [Header("References")]
     public Transform player;

@@ -189,7 +189,7 @@ public class PlayerController : MonoBehaviour
 			shurikenScript.direction = shootDirection;
 		}
 
-		Destroy(shuriken, 6f);
+		Destroy(shuriken, 1f);
     }
 
     // ================= AUDIO =================
