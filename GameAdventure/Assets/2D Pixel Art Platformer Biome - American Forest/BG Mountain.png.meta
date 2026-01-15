@@ -78,7 +78,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -129,8 +129,8 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 708
-        y: 410
-        width: 256
+        y: 425
+        width: 278
         height: 171
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -150,6 +150,28 @@ TextureImporter:
       name: BG Mountain_2
       rect:
         serializedVersion: 2
+        x: 197
+        y: 207
+        width: 256
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca85b8e5c7c881349b4055d33f3516aa
+      internalID: -1218836138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG Mountain_3
+      rect:
+        serializedVersion: 2
         x: 493
         y: 207
         width: 256
@@ -162,8 +184,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca85b8e5c7c881349b4055d33f3516aa
-      internalID: -1218836138
+      spriteID: 374e97e5c4dc6194690a81eefb444cfb
+      internalID: 1688595850
       vertices: []
       indices: 
       edges: []
@@ -187,6 +209,7 @@ TextureImporter:
       BG Mountain_0: -6604342232843388011
       BG Mountain_1: 3606563509239760318
       BG Mountain_2: -1218836138
+      BG Mountain_3: 1688595850
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
