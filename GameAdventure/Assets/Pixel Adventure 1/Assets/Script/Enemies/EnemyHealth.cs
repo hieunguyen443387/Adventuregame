@@ -3,16 +3,17 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 5;
-    private int currentHealth;
+    protected int currentHealth;   // 👈 protected để class con dùng được
 
     public Animator animator;
 
-    void Start()
+    protected virtual void Start()
     {
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    // 👇 cho phép override
+    public virtual void TakeDamage(int damage)
     {
         currentHealth -= damage;
         Debug.Log(gameObject.name + " mất " + damage + " máu, còn: " + currentHealth);
@@ -23,12 +24,12 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    void Die()
+    protected virtual void Die()
     {
-        animator.SetTrigger("Die"); // chỉ chạy animation
+        animator.SetTrigger("Die");
     }
 
-    // 👇 HÀM NÀY SẼ ĐƯỢC GỌI TỪ ANIMATION EVENT
+    // GỌI TỪ ANIMATION EVENT
     public void DestroyEnemy()
     {
         Debug.Log(gameObject.name + " bị destroy");

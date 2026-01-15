@@ -102,7 +102,6 @@ public class SnailBehaviour : MonoBehaviour
 
     // ================= VISION =================
 
-
     bool CanSeePlayer()
     {
         Vector2 origin = transform.position;
@@ -191,19 +190,9 @@ public class SnailBehaviour : MonoBehaviour
         isPaused = false;
     }
 
-    // 👉 Frame đánh trúng
-    // public void EnableAttackHitbox()
-    // {
-    //     if (!CanSeePlayer()) return;
-    //     if (playerHealth.currentHealth <= 0) return;
+    public bool IsRolling()
+    {
+        return rolling;
+    }
 
-    //     attackHitbox.SetActive(true);
-    // }
-
-    // // 👉 Frame kết thúc đánh
-    // public void DisableAttackHitbox()
-    // {
-    //     attackHitbox.SetActive(false);
-    //     isAttacking = false;
-    // }
 }
