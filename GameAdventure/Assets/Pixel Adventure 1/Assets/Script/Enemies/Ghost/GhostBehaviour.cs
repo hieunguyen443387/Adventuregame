@@ -1,46 +1,44 @@
 using UnityEngine;
 using System.Collections;
 
-public class SnailBehaviour : MonoBehaviour
+public class GhostBehaviour : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [Header("References")]
+     [Header("References")]
     public Transform player;
-    public Rigidbody2D Snail;
+    public Rigidbody2D Ghost;
     public Animator animator;
-    //public GameObject attackHitbox;
-
-    [Header("Chase Settings")]
-    public float maxSpeed = 10f;
-    public float acceleration = 15f;
-    public float detectRange = 8f;
-    public float spinSpeed = 720f;
+    public SpriteRenderer ghostSprite;
+    public Collider2D ghostCollider;
 
     [Header("Vision")]
     public LayerMask wallLayer;   // 👈 layer của tường
+    public float detectRange = 8f;
 
     [Header("After Hit Settings")]
     public float inertiaTime = 0.4f;
+    public float disappearCooldown = 1.2f; // thời gian nghỉ giữa Disappear → Appear
     public float pauseAfterHit = 2f;
-
-    private float currentSpeed = 0f;
-    private int direction = 1;
+    private bool isTransitioning = false; // đang Disappear → chặn logic
     private bool isFacingRight = true;
-    private bool isPaused = false;
     private PlayerHealth playerHealth;
-    //private bool isAttacking = false;
-    private bool inShell;
-    private bool rolling;
-    private bool hitPlayer = false ;
-
-
     private Coroutine hitRoutine;
-    private Collider2D snailCollider;
+    private bool hitPlayer = false;
+    private bool isPaused = false;
+    private bool appear = true;
+    private int direction = 1;
+    [Header("Teleport Settings")]
+    public float teleportYOffset = 1.0f; // con ma xuất hiện cao hơn player bao nhiêu
+    private Vector3 lockedPlayerPos;
+    private bool hasLockedPosition = false;
+    private bool canAttack = true;
+    private Coroutine resetAttackRoutine;
+
+    //public GameObject attackHitbox;
     void Start()
     {
-        Snail = GetComponent<Rigidbody2D>();
+        Ghost = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        snailCollider = GetComponent<Collider2D>();
 
         if (player == null)
         {
@@ -53,45 +51,27 @@ public class SnailBehaviour : MonoBehaviour
             playerHealth = player.GetComponent<PlayerHealth>();
     }
 
-     // 👉 GỌI Ở FRAME CUỐI CỦA ANIM InShell
-    public void StartRolling()
-    {
-        rolling = true;
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isPaused || player == null || hitPlayer)
-        {
-            Snail.linearVelocity = Vector2.zero;
-            animator.SetBool("Rolling", false);
+        if (isPaused || player == null || hitPlayer || isTransitioning)
             return;
-        }
-        
+
         float distance = Vector2.Distance(transform.position, player.position);
+
         if (distance <= detectRange && CanSeePlayer())
         {
-            HandleDirection();
-            if (!inShell)
+            if (appear && canAttack)
             {
-                animator.SetTrigger("InShell");
-                inShell = true;
-            }
-            if (rolling)
-            {
-                Move();
-            }
-        }
-        else 
-        {
-            snailCollider.enabled = true;
-            if (inShell || hitPlayer) 
-            {
-                rolling = false;
-                animator.SetTrigger("OutShell");
-                inShell = false;
-                StopMove();
+                lockedPlayerPos = player.position + Vector3.up * teleportYOffset;
+                hasLockedPosition = true;
+                HandleDirection();
+                animator.ResetTrigger("Appear");
+                animator.ResetTrigger("Disappear");
+                animator.SetTrigger("Disappear");
+                appear = false;
+                isTransitioning = true;
+                canAttack = false;
             }
         }
     }
@@ -103,7 +83,6 @@ public class SnailBehaviour : MonoBehaviour
         Vector2 origin = transform.position;
         Vector2 target = player.position;
         Vector2 dir = target - origin;
-
         RaycastHit2D hit = Physics2D.Raycast( origin, dir.normalized, detectRange, wallLayer );
 
         // Nếu ray đụng tường trước → không thấy player
@@ -134,20 +113,37 @@ public class SnailBehaviour : MonoBehaviour
         transform.localScale = scale;
     }
 
-    // ================= MOVE =================
-    void Move()
+
+    // ================= APPEAR =================
+
+    public void Disappear()
     {
-        currentSpeed = Mathf.MoveTowards( currentSpeed, maxSpeed, acceleration * Time.fixedDeltaTime ); 
-        Snail.linearVelocity = new Vector2(direction * currentSpeed, Snail.linearVelocity.y);
-        animator.SetBool("Rolling", true);
+        ghostSprite.enabled = false;
+        ghostCollider.enabled = false;
+        StartCoroutine(DisappearCooldown());
     }
 
-    void StopMove()
+    public void Appear()
     {
-        currentSpeed = 0;
-        //rolling = false; 
-        Snail.linearVelocity = new Vector2(0, Snail.linearVelocity.y);
-        animator.SetBool("Rolling", false);
+        ghostSprite.enabled = true;
+        ghostCollider.enabled = true;
+
+        TeleportToPlayer();
+
+        if (resetAttackRoutine != null)
+            StopCoroutine(resetAttackRoutine);
+
+        resetAttackRoutine = StartCoroutine(ResetAttack());
+    }
+
+    void TeleportToPlayer()
+    {
+        if (player == null) return;
+        if (hasLockedPosition)
+        {
+            transform.position = lockedPlayerPos;
+            hasLockedPosition = false; 
+        }
     }
 
     // ================= HIT =================
@@ -156,18 +152,26 @@ public class SnailBehaviour : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            rolling = false; 
             hitPlayer = true; 
-            Debug.Log("hitPlayer = true");
-            animator.SetTrigger("OutShell");
-            
             if (hitRoutine != null)
                 StopCoroutine(hitRoutine);
             hitRoutine = StartCoroutine(HitBehaviour());
         }
+    }
 
-        if (collision.CompareTag("Wall"))
-            animator.SetTrigger("HitWall");
+    // ================= COROUNTINE =================
+    IEnumerator DisappearCooldown()
+    {
+        yield return new WaitForSeconds(disappearCooldown);
+        animator.SetTrigger("Appear");
+    }
+
+    IEnumerator ResetAttack()
+    {
+        yield return new WaitForSeconds(disappearCooldown);
+        isTransitioning = false;
+        canAttack = true;
+        appear = true;
     }
 
     IEnumerator HitBehaviour()
@@ -175,20 +179,9 @@ public class SnailBehaviour : MonoBehaviour
         yield return new WaitForSeconds(inertiaTime);
         hitPlayer = false; 
         isPaused = true;
-        inShell = false;      // 🔥 BẮT BUỘC RESET
-        rolling = false;      // 🔥 AN TOÀN
-        Snail.linearVelocity = Vector2.zero;
-        snailCollider.enabled = true;
-        //animator.SetTrigger("OutShell");
 
         yield return new WaitForSeconds(pauseAfterHit);
 
         isPaused = false;
     }
-
-    public bool IsRolling()
-    {
-        return rolling;
-    }
-
 }
