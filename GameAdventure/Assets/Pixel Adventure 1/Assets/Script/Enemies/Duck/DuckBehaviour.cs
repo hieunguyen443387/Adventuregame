@@ -1,15 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class GhostBehaviour : MonoBehaviour
+public class DuckBehaviour : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [Header("References")]
     public Transform player;
-    public Rigidbody2D Ghost;
+    public Rigidbody2D Duck;
     public Animator animator;
-    public SpriteRenderer ghostSprite;
-    public Collider2D ghostCollider;
 
     [Header("Vision")]
     public LayerMask wallLayer;   // 👈 layer của tường
@@ -17,27 +15,32 @@ public class GhostBehaviour : MonoBehaviour
 
     [Header("After Hit Settings")]
     public float inertiaTime = 0.4f;
-    public float disappearCooldown = 1.2f; // thời gian nghỉ giữa Disappear → Appear
     public float pauseAfterHit = 2f;
-    private bool isTransitioning = false; // đang Disappear → chặn logic
     private bool isFacingRight = true;
     private PlayerHealth playerHealth;
     private Coroutine hitRoutine;
     private bool hitPlayer = false;
     private bool isPaused = false;
-    private bool appear = true;
     private int direction = 1;
-    [Header("Teleport Settings")]
-    public float teleportYOffset = 1.0f; // con ma xuất hiện cao hơn player bao nhiêu
-    private Vector3 lockedPlayerPos;
-    private bool hasLockedPosition = false;
-    private bool canAttack = true;
-    private Coroutine resetAttackRoutine;
 
-    //public GameObject attackHitbox;
+    [Header("Attack Settings")]
+    private Vector3 lockedPlayerPos;
+    public float jumpForce = 15f;
+    private bool hasLockedPosition = false;
+    private Coroutine resetAttackRoutine;
+    private bool jumpAnticipation;
+
+    [Header("Ground Check")]
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.2f;
+    public LayerMask groundLayer;
+    public bool isGrounded;
+
+
+
     void Start()
     {
-        Ghost = GetComponent<Rigidbody2D>();
+        Duck = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
         if (player == null)
@@ -52,32 +55,40 @@ public class GhostBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
-        if (isPaused || player == null || hitPlayer || isTransitioning)
-            return;
 
+     // 👉 GỌI Ở FRAME CUỐI CỦA ANIM JumpAnticipation
+    void Update()
+    {   
+        animator.SetBool("IsInAir", !isGrounded);
+        animator.SetFloat("yVelocity", Duck.linearVelocity.y);
+        
+        if (isPaused || player == null || hitPlayer)
+            return;
+        
         float distance = Vector2.Distance(transform.position, player.position);
 
         if (distance <= detectRange && CanSeePlayer())
         {
             HandleDirection();
-            if (appear && canAttack)
+            if (isGrounded && !jumpAnticipation)
             {
-                lockedPlayerPos = player.position + Vector3.up * teleportYOffset;
+                lockedPlayerPos = player.position;
                 hasLockedPosition = true;
-                animator.ResetTrigger("Appear");
-                animator.ResetTrigger("Disappear");
-                animator.SetTrigger("Disappear");
-                appear = false;
-                isTransitioning = true;
-                canAttack = false;
+                animator.SetTrigger("JumpAnticipation");
+                jumpAnticipation = true;
+                Debug.Log("Duck Jump Anticipation triggered" + jumpAnticipation);
             }
+            
+        }
+        else
+        {
+            if (!isGrounded)
+                animator.SetBool("IsInAir", true);
         }
     }
 
-    // ================= VISION =================
 
+    // ================= DETECT PLAYER =================
     bool CanSeePlayer()
     {
         Vector2 origin = transform.position;
@@ -101,7 +112,8 @@ public class GhostBehaviour : MonoBehaviour
 
         direction = xDiff > 0 ? 1 : -1;
 
-        if ((direction == -1 && !isFacingRight) || (direction == 1 && isFacingRight))
+        // 👇 ĐIỀU KIỆN ĐÚNG
+        if ((direction == 1 && !isFacingRight) || (direction == -1 && isFacingRight))
             Flip();
     }
 
@@ -113,74 +125,61 @@ public class GhostBehaviour : MonoBehaviour
         transform.localScale = scale;
     }
 
+    // ================= JUMP =================
+    // 🔥 ĐƯỢC GỌI TỪ ANIMATION EVENT
 
-    // ================= APPEAR =================
-
-    public void Disappear()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        ghostSprite.enabled = false;
-        ghostCollider.enabled = false;
-        StartCoroutine(DisappearCooldown());
-    }
-
-    public void Appear()
-    {
-        ghostSprite.enabled = true;
-        ghostCollider.enabled = true;
-
-        TeleportToPlayer();
-
-        if (resetAttackRoutine != null)
-            StopCoroutine(resetAttackRoutine);
-
-        resetAttackRoutine = StartCoroutine(ResetAttack());
-    }
-
-    void TeleportToPlayer()
-    {
-        if (player == null) return;
-        if (hasLockedPosition)
+        if (collision.collider.CompareTag("Ground"))
         {
-            transform.position = lockedPlayerPos;
-            hasLockedPosition = false; 
+            jumpAnticipation = false;   
+            Duck.linearVelocity = Vector2.zero;
+            isGrounded = true;  
         }
     }
-
-    // ================= HIT =================
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            hitPlayer = true; 
             if (hitRoutine != null)
                 StopCoroutine(hitRoutine);
             hitRoutine = StartCoroutine(HitBehaviour());
         }
     }
 
+    public void OnJumpAnticipationEnd()
+    {
+        Jump();
+    }
+
+    void Jump()
+    {
+        animator.SetBool("IsInAir", true);
+        animator.SetFloat("yVelocity", Duck.linearVelocity.y);
+        isGrounded = false;
+        float distanceX = lockedPlayerPos.x - transform.position.x;
+        float gravity = Mathf.Abs(Physics2D.gravity.y * Duck.gravityScale);
+        float timeInAir = (2f * jumpForce) / gravity;
+        float jumpXSpeed = distanceX / timeInAir;
+        if (hasLockedPosition)
+        {
+            Duck.linearVelocity = new Vector2(jumpXSpeed, jumpForce);
+            hasLockedPosition = false; 
+        } 
+    }
+
     // ================= COROUNTINE =================
-    IEnumerator DisappearCooldown()
-    {
-        yield return new WaitForSeconds(disappearCooldown);
-        animator.SetTrigger("Appear");
-    }
-
-    IEnumerator ResetAttack()
-    {
-        yield return new WaitForSeconds(disappearCooldown);
-        isTransitioning = false;
-        canAttack = true;
-        appear = true;
-    }
-
     IEnumerator HitBehaviour()
     {
         yield return new WaitForSeconds(inertiaTime);
-        hitPlayer = false; 
+
         isPaused = true;
+        Duck.linearVelocity = Vector2.zero;
+        animator.SetFloat("xVelocity", 0f);
 
         yield return new WaitForSeconds(pauseAfterHit);
+
         isPaused = false;
     }
 }

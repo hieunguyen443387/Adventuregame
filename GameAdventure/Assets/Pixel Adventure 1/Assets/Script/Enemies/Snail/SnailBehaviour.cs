@@ -145,7 +145,6 @@ public class SnailBehaviour : MonoBehaviour
     void StopMove()
     {
         currentSpeed = 0;
-        //rolling = false; 
         Snail.linearVelocity = new Vector2(0, Snail.linearVelocity.y);
         animator.SetBool("Rolling", false);
     }
