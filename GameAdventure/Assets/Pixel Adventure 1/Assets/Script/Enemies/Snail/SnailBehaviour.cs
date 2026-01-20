@@ -14,7 +14,6 @@ public class SnailBehaviour : MonoBehaviour
     public float maxSpeed = 10f;
     public float acceleration = 15f;
     public float detectRange = 8f;
-    public float spinSpeed = 720f;
 
     [Header("Vision")]
     public LayerMask wallLayer;   // 👈 layer của tường
@@ -24,7 +23,7 @@ public class SnailBehaviour : MonoBehaviour
     public float pauseAfterHit = 2f;
 
     private float currentSpeed = 0f;
-    private int direction = 1;
+    private int direction = -1;
     private bool isFacingRight = true;
     private bool isPaused = false;
     private PlayerHealth playerHealth;
@@ -32,7 +31,8 @@ public class SnailBehaviour : MonoBehaviour
     private bool inShell;
     private bool rolling;
     private bool hitPlayer = false ;
-
+    private float lockedPlayerPos;
+    private bool hasLockedPosition = false;
 
     private Coroutine hitRoutine;
     private Collider2D snailCollider;
@@ -75,12 +75,25 @@ public class SnailBehaviour : MonoBehaviour
             HandleDirection();
             if (!inShell)
             {
+                lockedPlayerPos = player.position.x;
+                hasLockedPosition = true;
                 animator.SetTrigger("InShell");
                 inShell = true;
             }
             if (rolling)
             {
                 Move();
+                bool passedPlayer =
+                    (direction == 1 && transform.position.x > lockedPlayerPos) ||
+                    (direction == -1 && transform.position.x < lockedPlayerPos);
+
+                if (passedPlayer)
+                {
+                    rolling = false;
+                    StopMove();
+                    animator.SetTrigger("OutShell");
+                    inShell = false;
+                }
             }
         }
         else 

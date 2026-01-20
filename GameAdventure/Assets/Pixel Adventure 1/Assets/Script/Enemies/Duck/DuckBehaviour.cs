@@ -16,6 +16,7 @@ public class DuckBehaviour : MonoBehaviour
     [Header("After Hit Settings")]
     public float inertiaTime = 0.4f;
     public float pauseAfterHit = 2f;
+    public float pauseAfterAttack = 2f;
     private bool isFacingRight = true;
     private PlayerHealth playerHealth;
     private Coroutine hitRoutine;
@@ -77,8 +78,7 @@ public class DuckBehaviour : MonoBehaviour
                 animator.SetTrigger("JumpAnticipation");
                 jumpAnticipation = true;
                 Debug.Log("Duck Jump Anticipation triggered" + jumpAnticipation);
-            }
-            
+            }  
         }
         else
         {
@@ -130,11 +130,13 @@ public class DuckBehaviour : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isGrounded) return;
         if (collision.collider.CompareTag("Ground"))
         {
             jumpAnticipation = false;   
             Duck.linearVelocity = Vector2.zero;
             isGrounded = true;  
+            StartCoroutine(HitBehaviour());
         }
     }
 
@@ -170,6 +172,7 @@ public class DuckBehaviour : MonoBehaviour
     }
 
     // ================= COROUNTINE =================
+
     IEnumerator HitBehaviour()
     {
         yield return new WaitForSeconds(inertiaTime);
