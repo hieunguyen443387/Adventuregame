@@ -15,7 +15,6 @@ public class PlayerHit : MonoBehaviour
     [Header("References")]
     public Rigidbody2D ninjaFrog;
     private Animator animator;
-    private Rigidbody2D rb;
     private Collider2D playerCollider;
     [Header("Cinemachine Camera")] 
     public CinemachineCamera cinemachineCam; // ✅ Thêm tham chiếu camera
@@ -31,7 +30,6 @@ public class PlayerHit : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
         currentHearts = maxHearts;
 
@@ -55,13 +53,13 @@ public class PlayerHit : MonoBehaviour
                 cinemachineCam.Follow = null;
             }
             transform.Rotate(Vector3.forward * spinSpeed * Time.deltaTime);
-            rb.linearVelocity = Vector2.zero;
-            rb.gravityScale = 3f;
-            rb.freezeRotation = false;
+            ninjaFrog.linearVelocity = Vector2.zero;
+            ninjaFrog.gravityScale = 3f;
+            ninjaFrog.freezeRotation = false;
             playerCollider.isTrigger = true;
 
             // 💥 Hất văng
-            rb.AddForce( new Vector2(knockbackForceX, knockbackForceY), ForceMode2D.Impulse );
+            ninjaFrog.AddForce(new Vector2(knockbackForceX, knockbackForceY), ForceMode2D.Impulse);
         }
     }
 
@@ -70,11 +68,16 @@ public class PlayerHit : MonoBehaviour
         if (other.CompareTag("Trap") || other.CompareTag("Enemy") || other.CompareTag("DeadZone") || other.CompareTag("Spike"))
         {
             TakeDamage();
+            float hitDir = transform.localScale.x > 0 ? -1f : 1f; 
+            playerController.isKnockback = true;
+            ninjaFrog.linearVelocity = new Vector2(0f, ninjaFrog.linearVelocity.y);
+            ninjaFrog.AddForce(new Vector2(hitDir * knockbackForceX, ninjaFrog.linearVelocity.y),ForceMode2D.Impulse);
             animator.SetTrigger("Hit");
             animator.SetBool("IsJumping", false);
             PlayHitSound();
             GetComponent<PlayerHealth>()?.TakeDamage(1);
             Debug.Log("Player was hit by " + other.tag);
+            Invoke(nameof(EndKnockback), 0.25f); 
         }
     }
 
@@ -86,4 +89,10 @@ public class PlayerHit : MonoBehaviour
 			audioSource.PlayOneShot(hitSound);
 		}
 	}
+
+    void EndKnockback()
+    {
+        playerController.isKnockback = false;
+    }
+
 }

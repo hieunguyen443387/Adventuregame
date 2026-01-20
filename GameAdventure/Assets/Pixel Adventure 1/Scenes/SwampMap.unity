@@ -13150,6 +13150,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6436137553315786771, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: hitForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -6436137553315786771, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: cinemachineCam
+      value: 
+      objectReference: {fileID: 1923719114}
+    - target: {fileID: -6436137553315786771, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
+      propertyPath: knockbackForceX
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 933281733729891608, guid: afe2450825e4fa041be003b56e7d784f, type: 3}
       propertyPath: m_Name
       value: Player

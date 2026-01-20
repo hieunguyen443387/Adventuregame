@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     public Rigidbody2D ninjaFrog;
     public Animator animator;
+    private PlayerHit playerHit;
 
     [Header("Audio Settings")]
     public AudioClip jumpSound;
@@ -16,6 +17,8 @@ public class PlayerController : MonoBehaviour
     // Multiplier applied to horizontal control when airborne (0-1)
     public float airControlMultiplier = 10f;
     private bool doubleJump;
+    public bool isKnockback = false;
+
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -39,6 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         originalScale = transform.localScale;
         audioSource = GetComponent<AudioSource>();
+        playerHit = GetComponent<PlayerHit>();
     }
 
     void Update()
@@ -68,6 +72,11 @@ public class PlayerController : MonoBehaviour
     // ================= MOVE =================
     void Move()
     {
+        if (isKnockback) return; 
+
+        if (playerHit != null && playerHit.IsOutOfHearts)
+            return;
+
         float move = Input.GetAxisRaw("Horizontal");
 
         // 🟢 ĐANG Ở MẶT ĐẤT → set cứng
