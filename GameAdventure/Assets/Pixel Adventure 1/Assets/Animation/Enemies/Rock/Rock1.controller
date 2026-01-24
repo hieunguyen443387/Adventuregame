@@ -68,7 +68,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 5d646ccfeb473e3488470760f97aa988, type: 2}
+    m_Motion: {fileID: 7400000, guid: b1a53e65a55814d4bb93a81a1428d2bf, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 0.3
@@ -76,7 +76,7 @@ BlendTree:
     m_DirectBlendParameter: xVelocity
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 243745241ac6f5045a33ba435ebfc1b5, type: 2}
+    m_Motion: {fileID: 7400000, guid: 0b6be6ae196b5d04b954d1fdb5af2312, type: 2}
     m_Threshold: 2
     m_Position: {x: 0, y: 0}
     m_TimeScale: 0.3
@@ -98,7 +98,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Rock1Die
-  m_Speed: 0.5
+  m_Speed: 0.7
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -110,7 +110,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 381bd28fc135f1f4681969265af73a0a, type: 2}
+  m_Motion: {fileID: 7400000, guid: f83c7c1f033425f41ba687ae97cd81e7, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

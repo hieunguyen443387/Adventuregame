@@ -7434,13 +7434,14 @@ GameObject:
   - component: {fileID: 833100604}
   - component: {fileID: 833100605}
   - component: {fileID: 833100606}
+  - component: {fileID: 833100607}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &833100600
 Rigidbody2D:
   serializedVersion: 5
@@ -7638,14 +7639,28 @@ MonoBehaviour:
   animator: {fileID: 833100604}
   ghostSprite: {fileID: 833100602}
   ghostCollider: {fileID: 833100601}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  detectRange: 8
   inertiaTime: 0.4
   disappearCooldown: 0.7
   pauseAfterHit: 0.7
   teleportYOffset: 0.5
+--- !u!114 &833100607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833100596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a61e049e89a924f9b145b360c8bee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1474251578}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  detectRange: 8
+  isFacingRight: 1
 --- !u!1 &894647953
 GameObject:
   m_ObjectHideFlags: 0
@@ -13660,7 +13675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &1597851100
 Animator:
   serializedVersion: 7

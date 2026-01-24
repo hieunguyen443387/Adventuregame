@@ -10,10 +10,7 @@ public class GhostBehaviour : MonoBehaviour
     public Animator animator;
     public SpriteRenderer ghostSprite;
     public Collider2D ghostCollider;
-
-    [Header("Vision")]
-    public LayerMask wallLayer;   // 👈 layer của tường
-    public float detectRange = 8f;
+    private DetectPlayer detect;  
 
     [Header("After Hit Settings")]
     public float inertiaTime = 0.4f;
@@ -33,12 +30,12 @@ public class GhostBehaviour : MonoBehaviour
     private bool hasLockedPosition = false;
     private bool canAttack = true;
     private Coroutine resetAttackRoutine;
-
-    //public GameObject attackHitbox;
+    
     void Start()
     {
         Ghost = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        detect = GetComponent<DetectPlayer>();
 
         if (player == null)
         {
@@ -59,9 +56,9 @@ public class GhostBehaviour : MonoBehaviour
 
         float distance = Vector2.Distance(transform.position, player.position);
 
-        if (distance <= detectRange && CanSeePlayer())
+        if (distance <= detect.detectRange && detect.CanSeePlayer())
         {
-            HandleDirection();
+            detect.HandleDirection();
             if (appear && canAttack)
             {
                 lockedPlayerPos = player.position + Vector3.up * teleportYOffset;
@@ -74,43 +71,6 @@ public class GhostBehaviour : MonoBehaviour
                 canAttack = false;
             }
         }
-    }
-
-    // ================= VISION =================
-
-    bool CanSeePlayer()
-    {
-        Vector2 origin = transform.position;
-        Vector2 target = player.position;
-        Vector2 dir = target - origin;
-        RaycastHit2D hit = Physics2D.Raycast( origin, dir.normalized, detectRange, wallLayer );
-
-        // Nếu ray đụng tường trước → không thấy player
-        return hit.collider == null;
-    }
-
-    // ================= FLIP =================
-
-    void HandleDirection()
-    {
-        PlayerController pc = player.GetComponent<PlayerController>();
-        if (pc != null && !pc.isGrounded) return;
-
-        float xDiff = player.position.x - transform.position.x;
-        if (Mathf.Abs(xDiff) < 0.1f) return;
-
-        direction = xDiff > 0 ? 1 : -1;
-
-        if ((direction == -1 && !isFacingRight) || (direction == 1 && isFacingRight))
-            Flip();
-    }
-
-    void Flip()
-    {
-        isFacingRight = !isFacingRight;
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
     }
 
 
