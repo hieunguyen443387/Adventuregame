@@ -11,6 +11,7 @@ public class DetectPlayer : MonoBehaviour
 
     [Header("Flip")]
     public bool isFacingRight = true;
+    public int Direction => isFacingRight ? 1 : -1;
 
     void Awake()
     {
@@ -47,8 +48,7 @@ public class DetectPlayer : MonoBehaviour
 
         int direction = xDiff > 0 ? 1 : -1;
 
-        if ((direction == 1 && !isFacingRight) ||
-            (direction == -1 && isFacingRight))
+        if ((direction == 1 && !isFacingRight) || (direction == -1 && isFacingRight))
         {
             Flip();
         }

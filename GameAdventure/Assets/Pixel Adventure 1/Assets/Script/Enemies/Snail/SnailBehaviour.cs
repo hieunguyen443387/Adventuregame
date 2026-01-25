@@ -8,26 +8,20 @@ public class SnailBehaviour : MonoBehaviour
     public Transform player;
     public Rigidbody2D Snail;
     public Animator animator;
-    //public GameObject attackHitbox;
+    private DetectPlayer detect;  
 
     [Header("Chase Settings")]
     public float maxSpeed = 10f;
     public float acceleration = 15f;
-    public float detectRange = 8f;
-
-    [Header("Vision")]
-    public LayerMask wallLayer;   // 👈 layer của tường
 
     [Header("After Hit Settings")]
     public float inertiaTime = 0.4f;
     public float pauseAfterHit = 2f;
 
     private float currentSpeed = 0f;
-    private int direction = -1;
-    private bool isFacingRight = true;
+    private int direction;
     private bool isPaused = false;
     private PlayerHealth playerHealth;
-    //private bool isAttacking = false;
     private bool inShell;
     private bool rolling;
     private bool hitPlayer = false ;
@@ -41,6 +35,7 @@ public class SnailBehaviour : MonoBehaviour
         Snail = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         snailCollider = GetComponent<Collider2D>();
+        detect = GetComponent<DetectPlayer>();
 
         if (player == null)
         {
@@ -70,9 +65,10 @@ public class SnailBehaviour : MonoBehaviour
         }
         
         float distance = Vector2.Distance(transform.position, player.position);
-        if (distance <= detectRange && CanSeePlayer())
+        if (distance <= detect.detectRange && detect.CanSeePlayer())
         {
-            HandleDirection();
+            direction = detect.Direction;
+            detect.HandleDirection();
             if (!inShell)
             {
                 lockedPlayerPos = player.position.x;
@@ -107,44 +103,6 @@ public class SnailBehaviour : MonoBehaviour
                 StopMove();
             }
         }
-    }
-
-    // ================= VISION =================
-
-    bool CanSeePlayer()
-    {
-        Vector2 origin = transform.position;
-        Vector2 target = player.position;
-        Vector2 dir = target - origin;
-
-        RaycastHit2D hit = Physics2D.Raycast( origin, dir.normalized, detectRange, wallLayer );
-
-        // Nếu ray đụng tường trước → không thấy player
-        return hit.collider == null;
-    }
-
-    // ================= FLIP =================
-
-    void HandleDirection()
-    {
-        PlayerController pc = player.GetComponent<PlayerController>();
-        if (pc != null && !pc.isGrounded) return;
-
-        float xDiff = player.position.x - transform.position.x;
-        if (Mathf.Abs(xDiff) < 0.1f) return;
-
-        direction = xDiff > 0 ? 1 : -1;
-
-        if ((direction == -1 && !isFacingRight) || (direction == 1 && isFacingRight))
-            Flip();
-    }
-
-    void Flip()
-    {
-        isFacingRight = !isFacingRight;
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
     }
 
     // ================= MOVE =================

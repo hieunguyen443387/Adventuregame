@@ -7441,7 +7441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &833100600
 Rigidbody2D:
   serializedVersion: 5
@@ -7959,7 +7959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0400be450c281864f84fea876ec867d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1474251578}
   attackHitbox: {fileID: 2064955928}
   chameleon: {fileID: 923914550}
   detectRange: 8
@@ -8790,6 +8790,7 @@ GameObject:
   - component: {fileID: 1152016031}
   - component: {fileID: 1152016037}
   - component: {fileID: 1152016036}
+  - component: {fileID: 1152016038}
   m_Layer: 0
   m_Name: Duck
   m_TagString: Enemy
@@ -8978,10 +8979,6 @@ MonoBehaviour:
   player: {fileID: 1474251578}
   Duck: {fileID: 1152016032}
   animator: {fileID: 1152016031}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  detectRange: 8
   inertiaTime: 0.2
   pauseAfterHit: 2
   pauseAfterAttack: 2
@@ -9038,6 +9035,24 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.2194252, y: 0.0030457973}
   m_EdgeRadius: 0
+--- !u!114 &1152016038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152016030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a61e049e89a924f9b145b360c8bee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1474251578}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  detectRange: 8
+  isFacingRight: 1
 --- !u!1 &1178761310
 GameObject:
   m_ObjectHideFlags: 0
@@ -13669,13 +13684,14 @@ GameObject:
   - component: {fileID: 1597851100}
   - component: {fileID: 1597851107}
   - component: {fileID: 1597851109}
+  - component: {fileID: 1597851110}
   m_Layer: 0
   m_Name: Snail
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1597851100
 Animator:
   serializedVersion: 7
@@ -13833,7 +13849,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -3906221422484359612, guid: 35d33412cf90ccf4f9e1b5100ba41640, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.38, y: 0.24}
@@ -13859,10 +13875,6 @@ MonoBehaviour:
   animator: {fileID: 1597851100}
   maxSpeed: 10
   acceleration: 15
-  detectRange: 20
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 0
   inertiaTime: 0.4
   pauseAfterHit: 2
 --- !u!114 &1597851109
@@ -13874,11 +13886,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1597851098}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f518ea9757efb64a8f305055fc40f3f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f41346d47fb2324aa49db25aa7dbf69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
   animator: {fileID: 1597851100}
+--- !u!114 &1597851110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597851098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a61e049e89a924f9b145b360c8bee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1474251578}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  detectRange: 20
+  isFacingRight: 1
 --- !u!1 &1705482827
 GameObject:
   m_ObjectHideFlags: 0

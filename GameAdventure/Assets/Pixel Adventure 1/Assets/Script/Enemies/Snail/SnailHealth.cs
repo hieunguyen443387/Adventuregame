@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BossHealth : EnemyHealth
+public class SnailHealth : EnemyHealth
 {
     private SnailBehaviour snail; // hoặc script boss của bạn
 
