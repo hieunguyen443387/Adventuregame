@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SnailHealth : EnemyHealth
 {
-    private SnailBehaviour snail; // hoặc script boss của bạn
+    private SnailBehaviour snail; // hoặc script snail
 
     protected override void Start()
     {

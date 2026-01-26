@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SnailBehaviour : MonoBehaviour
+public class SnailBehaviour : EnemyMove
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [Header("References")]
@@ -9,16 +9,12 @@ public class SnailBehaviour : MonoBehaviour
     public Rigidbody2D Snail;
     public Animator animator;
     private DetectPlayer detect;  
-
-    [Header("Chase Settings")]
-    public float maxSpeed = 10f;
-    public float acceleration = 15f;
+    private EnemyMove move; 
 
     [Header("After Hit Settings")]
     public float inertiaTime = 0.4f;
     public float pauseAfterHit = 2f;
 
-    private float currentSpeed = 0f;
     private int direction;
     private bool isPaused = false;
     private PlayerHealth playerHealth;
@@ -36,6 +32,7 @@ public class SnailBehaviour : MonoBehaviour
         animator = GetComponent<Animator>();
         snailCollider = GetComponent<Collider2D>();
         detect = GetComponent<DetectPlayer>();
+        move = GetComponent<EnemyMove>();
 
         if (player == null)
         {
@@ -106,16 +103,17 @@ public class SnailBehaviour : MonoBehaviour
     }
 
     // ================= MOVE =================
-    void Move()
+    public virtual float Move()
     {
-        currentSpeed = Mathf.MoveTowards( currentSpeed, maxSpeed, acceleration * Time.fixedDeltaTime ); 
+        base.Move(); 
         Snail.linearVelocity = new Vector2(direction * currentSpeed, Snail.linearVelocity.y);
         animator.SetBool("Rolling", true);
+        return currentSpeed;
     }
 
-    void StopMove()
+    public virtual void StopMove()
     {
-        currentSpeed = 0;
+        base.StopMove();
         Snail.linearVelocity = new Vector2(0, Snail.linearVelocity.y);
         animator.SetBool("Rolling", false);
     }
