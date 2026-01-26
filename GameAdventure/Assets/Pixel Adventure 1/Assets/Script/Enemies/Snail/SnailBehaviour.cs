@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SnailBehaviour : EnemyMove
+public class SnailBehaviour : EnemyBase
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [Header("References")]
@@ -9,14 +9,9 @@ public class SnailBehaviour : EnemyMove
     public Rigidbody2D Snail;
     public Animator animator;
     private DetectPlayer detect;  
-    private EnemyMove move; 
-
-    [Header("After Hit Settings")]
-    public float inertiaTime = 0.4f;
-    public float pauseAfterHit = 2f;
+    private EnemyBase enemyBase; 
 
     private int direction;
-    private bool isPaused = false;
     private PlayerHealth playerHealth;
     private bool inShell;
     private bool rolling;
@@ -32,7 +27,7 @@ public class SnailBehaviour : EnemyMove
         animator = GetComponent<Animator>();
         snailCollider = GetComponent<Collider2D>();
         detect = GetComponent<DetectPlayer>();
-        move = GetComponent<EnemyMove>();
+        enemyBase = GetComponent<EnemyBase>();
 
         if (player == null)
         {
@@ -138,9 +133,9 @@ public class SnailBehaviour : EnemyMove
             animator.SetTrigger("HitWall");
     }
 
-    IEnumerator HitBehaviour()
+    protected override void OnAfterInertia()
     {
-        yield return new WaitForSeconds(inertiaTime);
+        Debug.Log("Snail OnAfterInertia");
         hitPlayer = false; 
         isPaused = true;
         inShell = false;      // 🔥 BẮT BUỘC RESET
@@ -148,10 +143,11 @@ public class SnailBehaviour : EnemyMove
         Snail.linearVelocity = Vector2.zero;
         snailCollider.enabled = true;
         //animator.SetTrigger("OutShell");
+    }
 
-        yield return new WaitForSeconds(pauseAfterHit);
-
-        isPaused = false;
+    protected override void OnHitFinished()
+    {
+        Debug.Log("Snail Hit Finished");
     }
 
     public bool IsRolling()
