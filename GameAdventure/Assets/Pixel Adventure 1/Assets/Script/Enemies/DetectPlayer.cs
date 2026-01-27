@@ -30,12 +30,9 @@ public class DetectPlayer : MonoBehaviour
 
         Vector2 origin = transform.position;
         Vector2 target = player.position;
-        Vector2 dir = target - origin;
 
-        RaycastHit2D hit = Physics2D.Raycast(origin,dir.normalized,detectRange,wallLayer);
-
-        // ray không đụng tường → thấy player
-        return hit.collider == null;
+        float distance = Vector2.Distance(origin, target);
+        return distance <= detectRange;
     }
 
     // ================= FLIP =================

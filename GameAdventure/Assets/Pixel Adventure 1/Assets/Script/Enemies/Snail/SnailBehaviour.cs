@@ -3,151 +3,39 @@ using System.Collections;
 
 public class SnailBehaviour : EnemyBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     [Header("References")]
     public Transform player;
-    public Rigidbody2D Snail;
-    public Animator animator;
-    private DetectPlayer detect;  
-    private EnemyBase enemyBase; 
+    public Rigidbody2D rb;
+    private DetectPlayer detect;
+    private Collider2D col;
 
+    [Header("State")]
     private int direction;
-    private PlayerHealth playerHealth;
     private bool inShell;
     private bool rolling;
-    private bool hitPlayer = false ;
-    private float lockedPlayerPos;
-    private bool hasLockedPosition = false;
+    private bool hitPlayer;
+    private bool isRecovering;
 
-    private Coroutine hitRoutine;
-    private Collider2D snailCollider;
+    private float lockedPlayerX;
+
     void Start()
     {
-        Snail = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        snailCollider = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
         detect = GetComponent<DetectPlayer>();
-        enemyBase = GetComponent<EnemyBase>();
+        animator = GetComponent<Animator>();
 
         if (player == null)
         {
             GameObject p = GameObject.FindGameObjectWithTag("Player");
-            if (p != null)
-                player = p.transform;
+            if (p) player = p.transform;
         }
-
-        if (player != null)
-            playerHealth = player.GetComponent<PlayerHealth>();
     }
 
-     // 👉 GỌI Ở FRAME CUỐI CỦA ANIM InShell
+    // 🔔 gọi bằng Animation Event cuối anim InShell
     public void StartRolling()
     {
         rolling = true;
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if (isPaused || player == null || hitPlayer)
-        {
-            Snail.linearVelocity = Vector2.zero;
-            animator.SetBool("Rolling", false);
-            return;
-        }
-        
-        float distance = Vector2.Distance(transform.position, player.position);
-        if (distance <= detect.detectRange && detect.CanSeePlayer())
-        {
-            direction = detect.Direction;
-            detect.HandleDirection();
-            if (!inShell)
-            {
-                lockedPlayerPos = player.position.x;
-                hasLockedPosition = true;
-                animator.SetTrigger("InShell");
-                inShell = true;
-            }
-            if (rolling)
-            {
-                Move();
-                bool passedPlayer =
-                    (direction == 1 && transform.position.x > lockedPlayerPos) ||
-                    (direction == -1 && transform.position.x < lockedPlayerPos);
-
-                if (passedPlayer)
-                {
-                    rolling = false;
-                    StopMove();
-                    animator.SetTrigger("OutShell");
-                    inShell = false;
-                }
-            }
-        }
-        else 
-        {
-            snailCollider.enabled = true;
-            if (inShell || hitPlayer) 
-            {
-                rolling = false;
-                animator.SetTrigger("OutShell");
-                inShell = false;
-                StopMove();
-            }
-        }
-    }
-
-    // ================= MOVE =================
-    public virtual float Move()
-    {
-        base.Move(); 
-        Snail.linearVelocity = new Vector2(direction * currentSpeed, Snail.linearVelocity.y);
-        animator.SetBool("Rolling", true);
-        return currentSpeed;
-    }
-
-    public virtual void StopMove()
-    {
-        base.StopMove();
-        Snail.linearVelocity = new Vector2(0, Snail.linearVelocity.y);
-        animator.SetBool("Rolling", false);
-    }
-
-    // ================= HIT =================
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            rolling = false; 
-            hitPlayer = true; 
-            Debug.Log("hitPlayer = true");
-            animator.SetTrigger("OutShell");
-            
-            if (hitRoutine != null)
-                StopCoroutine(hitRoutine);
-            hitRoutine = StartCoroutine(HitBehaviour());
-        }
-
-        if (collision.CompareTag("Wall"))
-            animator.SetTrigger("HitWall");
-    }
-
-    protected override void OnAfterInertia()
-    {
-        Debug.Log("Snail OnAfterInertia");
-        hitPlayer = false; 
-        isPaused = true;
-        inShell = false;      // 🔥 BẮT BUỘC RESET
-        rolling = false;      // 🔥 AN TOÀN
-        Snail.linearVelocity = Vector2.zero;
-        snailCollider.enabled = true;
-        //animator.SetTrigger("OutShell");
-    }
-
-    protected override void OnHitFinished()
-    {
-        Debug.Log("Snail Hit Finished");
     }
 
     public bool IsRolling()
@@ -155,4 +43,93 @@ public class SnailBehaviour : EnemyBase
         return rolling;
     }
 
+    void FixedUpdate()
+    {
+        if (player == null || isPaused || hitPlayer || isRecovering)
+        {
+            rb.linearVelocity = Vector2.zero;
+            animator.SetBool("Rolling", false);
+            return;
+        }
+
+        if (!detect.CanSeePlayer())
+            return;
+
+        direction = detect.Direction;
+        detect.HandleDirection();
+
+        // ====== CHƯA VÀO SHELL ======
+        if (!inShell)
+        {
+            EnterShell();
+            return;
+        }
+
+        // ====== ĐANG LĂN ======
+        if (rolling)
+        {
+            MoveRolling();
+
+            bool passedPlayer = (direction == 1 && transform.position.x > lockedPlayerX) || (direction == -1 && transform.position.x < lockedPlayerX);
+
+            if (passedPlayer)
+            {
+                StartCoroutine(RecoverAfterRoll());
+            }
+        }
+    }
+
+    void EnterShell()
+    {
+        inShell = true;
+        rolling = false;
+
+        lockedPlayerX = player.position.x;
+        animator.SetTrigger("InShell");
+    }
+
+    void MoveRolling()
+    {
+        Move();
+        rb.linearVelocity = new Vector2(direction * currentSpeed, rb.linearVelocity.y);
+        animator.SetBool("Rolling", true);
+    }
+
+    IEnumerator RecoverAfterRoll()
+    {
+        isRecovering = true;
+
+        // ⛔ dừng quán tính
+        rolling = false;
+        StopMove();
+        rb.linearVelocity = Vector2.zero;
+        animator.SetBool("Rolling", false);
+        animator.SetTrigger("OutShell");
+
+        inShell = false;
+
+        // ⏸ đứng lại
+        yield return new WaitForSeconds(0.6f);
+
+        isRecovering = false;
+    }
+
+    // ========= HIT PLAYER =========
+    protected override void HandlePlayerHit()
+    {
+        hitPlayer = true;
+        rolling = false;
+        inShell = false;
+
+        StopMove();
+        rb.linearVelocity = Vector2.zero;
+
+        animator.SetTrigger("OutShell");
+        base.HandlePlayerHit();
+    }
+
+    protected override void OnAfterInertia()
+    {
+        hitPlayer = false;
+    }
 }

@@ -12,6 +12,8 @@ public class EnemyBase : MonoBehaviour {
     public float inertiaTime = 0.4f;
     public float pauseAfterHit = 2f;
     protected bool isPaused;
+    protected Animator animator;
+    private Coroutine hitRoutine;
 
     public virtual float Move()
     {
@@ -22,6 +24,31 @@ public class EnemyBase : MonoBehaviour {
     public virtual void StopMove()
     {
         currentSpeed = 0;
+    }
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            HandlePlayerHit();
+        }
+        else if (collision.CompareTag("Wall"))
+        {
+            HandleWallHit();
+        }
+    }
+
+    protected virtual void HandlePlayerHit()
+    {
+        if (hitRoutine != null)
+            StopCoroutine(hitRoutine);
+
+        hitRoutine = StartCoroutine(HitBehaviour());
+    }
+
+    protected virtual void HandleWallHit()   // ✅ BẮT BUỘC virtual
+    {
+        animator.SetTrigger("HitWall");
     }
 
     public virtual IEnumerator HitBehaviour()
