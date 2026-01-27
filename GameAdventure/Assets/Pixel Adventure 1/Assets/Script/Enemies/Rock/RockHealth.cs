@@ -30,11 +30,7 @@ public class RockHealth : EnemyHealth
         for (int i = 0; i < spawnCount; i++)
         {
             Vector2 offset = Random.insideUnitCircle * spawnOffset;
-            Instantiate(
-                nextRockPrefab,
-                (Vector2)transform.position + offset,
-                Quaternion.identity
-            );
+            Instantiate( nextRockPrefab, (Vector2)transform.position + offset, Quaternion.identity);
         }
     }
 

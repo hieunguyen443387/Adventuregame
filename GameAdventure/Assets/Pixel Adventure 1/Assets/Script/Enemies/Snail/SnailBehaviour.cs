@@ -59,7 +59,7 @@ public class SnailBehaviour : EnemyBase
         detect.HandleDirection();
 
         // ====== CHƯA VÀO SHELL ======
-        if (!inShell)
+        if (!inShell && !isRecovering)
         {
             EnterShell();
             return;
