@@ -5,7 +5,8 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 3;
     public int currentHealth;
-
+    private bool playerDie;
+    public bool PlayerDie => playerDie;
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
@@ -21,8 +22,10 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0) return; // tránh chết nhiều lần
 
         currentHealth -= damage;
-        if (currentHealth < 0)
+        if (currentHealth < 0){
             currentHealth = 0;
+            playerDie = true;
+        }
 
         UpdateHeartsUI();
 

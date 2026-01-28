@@ -7,13 +7,17 @@ public class SkrullBehaviour : EnemyBase
     public Transform player;
     public Rigidbody2D Skrull;
     private DetectPlayer detect;  
+    private SkrullHealth skrullHealth;  
     private EnemyBase enemyBase; 
+    public float recoveringTime = 0.4f;
 
     private int direction;
     private PlayerHealth playerHealth;
     private bool hitPlayer = false ;
     private float lockedPlayerPos;
     private bool hasLockedPosition = false;
+    private bool isRecovering = false;
+
 
     private Coroutine hitRoutine;
     private Collider2D skrullCollider;
@@ -27,6 +31,7 @@ public class SkrullBehaviour : EnemyBase
         animator = GetComponent<Animator>();
         skrullCollider = GetComponent<Collider2D>();
         detect = GetComponent<DetectPlayer>();
+        skrullHealth = GetComponent<SkrullHealth>();
         enemyBase = GetComponent<EnemyBase>();
 
         if (player == null)
@@ -43,7 +48,7 @@ public class SkrullBehaviour : EnemyBase
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isPaused || player == null || hitPlayer)
+        if (isPaused || player == null || hitPlayer || skrullHealth.IsCharging || isRecovering || playerHealth.PlayerDie)
         {
             Skrull.linearVelocity = Vector2.zero;
             return;
@@ -62,6 +67,8 @@ public class SkrullBehaviour : EnemyBase
             if (passedPlayer)
             {
                 StopMove();
+                hasLockedPosition = false; 
+                StartCoroutine(RecoverAfterMove());
             }
         }
         else 
@@ -111,6 +118,15 @@ public class SkrullBehaviour : EnemyBase
     protected override void OnHitFinished()
     {
         Debug.Log("Skrull Hit Finished");
+    }
+
+    IEnumerator RecoverAfterMove()
+    {
+        StopMove();
+        isRecovering = true;
+        // ⏸ đứng lại
+        yield return new WaitForSeconds(recoveringTime);
+        isRecovering = false;
     }
 
 }
