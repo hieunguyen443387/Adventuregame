@@ -20,7 +20,6 @@ public class SkrullBehaviour : EnemyBase
 
 
     private Coroutine hitRoutine;
-    private Collider2D skrullCollider;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,7 +28,6 @@ public class SkrullBehaviour : EnemyBase
     {
         Skrull = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        skrullCollider = GetComponent<Collider2D>();
         detect = GetComponent<DetectPlayer>();
         skrullHealth = GetComponent<SkrullHealth>();
         enemyBase = GetComponent<EnemyBase>();
@@ -73,7 +71,6 @@ public class SkrullBehaviour : EnemyBase
         }
         else 
         {
-            skrullCollider.enabled = true;
             if (hitPlayer) 
             {
                 StopMove();
@@ -112,7 +109,6 @@ public class SkrullBehaviour : EnemyBase
         hitPlayer = false; 
         isPaused = true;
         Skrull.linearVelocity = Vector2.zero;
-        skrullCollider.enabled = true;
     }
 
     protected override void OnHitFinished()

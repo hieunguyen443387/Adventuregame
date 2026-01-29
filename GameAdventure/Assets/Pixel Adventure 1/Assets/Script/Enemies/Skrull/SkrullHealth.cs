@@ -12,6 +12,9 @@ public class SkrullHealth : EnemyHealth
     public GameObject attackCircleCollider;   // 👈 vòng sát thương
     public GameObject attackHitBox;   
     private AttackCircleGrow growScript;
+    private bool hasExplodedOnDeath = false;
+    private bool hasCharged = false;
+    private bool isDead = false;
     public bool IsCharging => isCharging;
 
     protected override void Start()
@@ -39,13 +42,15 @@ public class SkrullHealth : EnemyHealth
 
     public override void TakeDamage(int damage)
     {
-        if (currentHealth <= 5)
+        base.TakeDamage(damage); // trừ máu trước
+
+        if (currentHealth <= 5 && !hasCharged)
         {
+            hasCharged = true;      // 🔒 KHÓA
+            isCharging = true;
             isEnraged = true;
             animator.SetTrigger("Charging");
         }
-
-        base.TakeDamage(damage);
     }
 
     // 🔥 GỌI TỪ ANIMATION EVENT CUỐI CHARGING
@@ -54,6 +59,11 @@ public class SkrullHealth : EnemyHealth
         isCharging = false;
         animator.ResetTrigger("Charging");
 
+        OnExplosionStart();
+    }
+
+    public void OnExplosionStart()
+    {
         // bật vòng đỏ phồng
         if (attackCircleGrow != null)
         {
@@ -65,29 +75,39 @@ public class SkrullHealth : EnemyHealth
     // 🔥 GỌI KHI VÒNG ĐỎ PHỒNG XONG
     public void OnExplosionFinished()
     {
-        if (attackCircleGrow != null)
-            attackCircleGrow.SetActive(false);
+        if (isDead) return;  
 
         if (attackCircleCollider != null)
             attackCircleCollider.SetActive(true);
 
         if (attackHitBox != null)
-            attackHitBox.SetActive(true);
+            attackHitBox.SetActive(false);
 
         animator.SetBool("isEnraged", isEnraged);
     }
 
     protected override void Die()
     {
-        base.Die();
-
+        if (hasExplodedOnDeath) return;   
+        hasExplodedOnDeath = true;
+        isDead = true;
         isEnraged = false;
         animator.SetBool("isEnraged", false);
-
-        if (attackCircleGrow != null)
-            attackCircleGrow.SetActive(false);
-
+        OnExplosionStart();
         if (attackCircleCollider != null)
             attackCircleCollider.SetActive(false);
+        base.Die();
+    }
+
+    public void HideEnemy()
+    {
+        // tắt animation
+        animator.enabled = false;
+        // tắt renderer
+        GetComponent<SpriteRenderer>().enabled = false; 
+        // tắt collider
+        GetComponent<Collider2D>().enabled = false;
+
+        Debug.Log("Enemy hidden");
     }
 }
