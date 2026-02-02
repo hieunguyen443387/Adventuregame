@@ -22,7 +22,8 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0) return; // tránh chết nhiều lần
 
         currentHealth -= damage;
-        if (currentHealth < 0){
+        if (currentHealth < 0)
+        {
             currentHealth = 0;
             playerDie = true;
         }

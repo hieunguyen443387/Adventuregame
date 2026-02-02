@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
         // ❌ Nếu player đã chết → không cho controller can thiệp animator
         if (GetComponent<RevivePlayer>()?.IsDead == true)
             return;
+        if (PauseGameManager.instance != null && PauseGameManager.instance.IsPaused)
+            return;
 
         CheckGround();
         Move();
