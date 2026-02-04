@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5166e5632bcfd384b8bb8192b20fe57c
+guid: d4f1bccbadd78d1438608e752a97b0a8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2812528802495159281
-    second: Kunai_0
+      213: 9008790079558903984
+    second: Continue Button(2)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Kunai_0
+      name: Continue Button(2)_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1184
-        height: 1280
+        x: 22
+        y: 56
+        width: 992
+        height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f04a8be94f3e7f8d0800000000000000
-      internalID: -2812528802495159281
+      spriteID: 0b8eb24c8d6a50d70800000000000000
+      internalID: 9008790079558903984
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Kunai_0: -2812528802495159281
+      Continue Button(2)_0: 9008790079558903984
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

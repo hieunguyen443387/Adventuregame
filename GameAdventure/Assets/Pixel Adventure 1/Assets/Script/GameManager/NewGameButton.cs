@@ -1,18 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartButton : MonoBehaviour
+public class NewGameButton : MonoBehaviour
 {
-    public GameObject startButtonObject; // kéo thả GameObject của Button vào đây trong Inspector
+    public GameObject newGameButtonObject; // kéo thả GameObject của Button vào đây trong Inspector
 
     public void OnStart()
     {
         Debug.Log("🎮 Bắt đầu game!");
 
         // Ẩn nút Start
-        if (startButtonObject != null)
+        if (newGameButtonObject != null)
         {
-            startButtonObject.SetActive(false);
+            newGameButtonObject.SetActive(false);
         }
 
         // Load Scene gameplay
