@@ -23,7 +23,15 @@ public class MainMenuManager : MonoBehaviour
 
     public void ContinueGame()
     {
-        DataPersistanceManager.instance.LoadGame();
-        SceneManager.LoadScene(startSceneName);
+        var data = DataPersistanceManager.instance.gameData;
+
+        if (data == null)
+        {
+            Debug.LogError("❌ No save data to continue");
+            return;
+        }
+
+        Debug.Log("▶ Continue game → load scene: " + data.lastSceneName);
+        SceneManager.LoadScene(data.lastSceneName);
     }
 }

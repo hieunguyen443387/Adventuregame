@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -15,21 +16,31 @@ public class PlayerHealth : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
+    private DataPersistanceManager dpm;
+
     void Start()
     {
-        // 🔥 LẤY MÁU TỪ SAVE (Continue)
-        if (DataPersistanceManager.instance != null &&
-            DataPersistanceManager.instance.gameData != null)
+        dpm = DataPersistanceManager.instance;
+
+        // ===== LOAD DATA =====
+        if (dpm != null && dpm.gameData != null)
         {
-            currentHealth = DataPersistanceManager.instance.gameData.playerHealth;
+            // Load máu
+            currentHealth = dpm.gameData.playerHealth;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+            // Load vị trí player
+            if (dpm.gameData.playerPosition != Vector3.zero)
+            {
+                transform.position = dpm.gameData.playerPosition;
+            }
         }
         else
         {
-            // fallback (New Game)
+            // New Game fallback
             currentHealth = maxHealth;
         }
 
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHeartsUI();
     }
 
@@ -40,11 +51,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        // 🔥 GHI VÀO SAVE DATA
-        if (DataPersistanceManager.instance != null)
-        {
-            DataPersistanceManager.instance.gameData.playerHealth = currentHealth;
-        }
+        SavePlayerHealth();
 
         UpdateHeartsUI();
 
@@ -55,11 +62,27 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private void SavePlayerHealth()
+    {
+        if (dpm == null || dpm.gameData == null) return;
+
+        dpm.gameData.playerHealth = currentHealth;
+        dpm.gameData.playerPosition = transform.position;
+        dpm.gameData.lastSceneName = SceneManager.GetActiveScene().name;
+
+        dpm.SaveGame();
+    }
+
     private void UpdateHeartsUI()
     {
         for (int i = 0; i < hearts.Length; i++)
         {
             hearts[i].sprite = i < currentHealth ? fullHeart : emptyHeart;
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        SavePlayerHealth();
     }
 }

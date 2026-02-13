@@ -95,6 +95,9 @@ public class GameOverManager : MonoBehaviour
     // Hàm gọi khi bấm nút "Play Again"
     public void PlayAgain()
     {
+        // reset data
+        DataPersistanceManager.instance.NewGame();
+
         // Lấy tên scene hiện tại và load lại
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);

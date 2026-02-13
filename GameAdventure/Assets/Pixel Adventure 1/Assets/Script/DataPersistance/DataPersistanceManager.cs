@@ -17,6 +17,8 @@ public class DataPersistanceManager : MonoBehaviour
 
         instance = this;
         DontDestroyOnLoad(gameObject);
+
+        LoadGame(); // 🔥 BẮT BUỘC
     }
 
     // New Game
