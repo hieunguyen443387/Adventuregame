@@ -4,7 +4,7 @@ public class CameraChunkLoader : MonoBehaviour
 {
     public Transform cam;
     public GameObject contentRoot;
-    public float loadDistance = 5f;
+    public float loadDistance = 25f;
 
     void Start()
     {
@@ -18,10 +18,11 @@ public class CameraChunkLoader : MonoBehaviour
 
     void UpdateLoadState()
     {
-        float dist = Mathf.Abs(cam.position.x - transform.position.x);
+        float dist = Mathf.Abs(cam.position.x - contentRoot.transform.position.x);
         bool shouldLoad = dist < loadDistance;
 
         if (contentRoot.activeSelf != shouldLoad)
             contentRoot.SetActive(shouldLoad);
     }
+
 }

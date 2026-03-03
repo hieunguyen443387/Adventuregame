@@ -11,6 +11,27 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Pixel Adventure 1/Scenes/SwampMap.unity
     guid: 41fc554539e77e743915a64fdd9fa358
+  - enabled: 1
+    path: Assets/Pixel Adventure 1/Scenes/BeachMap.unity
+    guid: 37491308f71d63945b273add06768746
+  - enabled: 1
+    path: Assets/Pixel Adventure 1/Scenes/CastleMap.unity
+    guid: 01b332cbeb2a6ae44a19d0e7de0f6be8
+  - enabled: 1
+    path: Assets/Pixel Adventure 1/Scenes/JapanForestMap.unity
+    guid: 44c81d32d0e62704c999ca68dc75f72c
+  - enabled: 1
+    path: Assets/Pixel Adventure 1/Scenes/MountainMap.unity
+    guid: a7ca63d9b879b3440b43b27ce11eb78b
+  - enabled: 1
+    path: Assets/Pixel Adventure 1/Scenes/InsideCastleMap.unity
+    guid: 30139bec9db789642a392d32f57e7a0a
+  - enabled: 1
+    path: Assets/Pixel Adventure 1/Scenes/AmericaForestMap.unity
+    guid: 873f20854eb1b2a469b07cdeda4bf665
+  - enabled: 1
+    path: Assets/Pixel Adventure 1/Scenes/DarkForestMap.unity
+    guid: 0c2bfa3fdf8d95445935b7b2e2805a24
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
