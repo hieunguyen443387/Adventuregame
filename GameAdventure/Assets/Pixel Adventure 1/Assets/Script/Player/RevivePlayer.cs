@@ -8,7 +8,7 @@ public class RevivePlayer : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator animator;
-    private PlayerHit playerHit;
+    private PlayerHealth playerHealth;
 
     private bool isDead = false;
     public bool IsDead => isDead;
@@ -19,7 +19,7 @@ public class RevivePlayer : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        playerHit = GetComponent<PlayerHit>();
+        playerHealth = GetComponent<PlayerHealth>();
 
         if (cinemachineCam == null)
             cinemachineCam = FindAnyObjectByType<CinemachineCamera>();
@@ -52,7 +52,7 @@ public class RevivePlayer : MonoBehaviour
     public void RespawnNow()
     {
         // ❌ HẾT TIM → CHẾT HẲN → KHÔNG RESPAWN
-        if (playerHit != null && playerHit.IsOutOfHearts)
+        if (playerHealth != null && playerHealth.IsOutOfHearts)
         {
             Debug.Log("Out of hearts → Game Over");
             return;

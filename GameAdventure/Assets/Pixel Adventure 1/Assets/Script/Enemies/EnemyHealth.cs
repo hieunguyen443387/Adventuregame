@@ -15,6 +15,7 @@ public class EnemyHealth : MonoBehaviour
     protected virtual void Start()
     {
         LoadEnemyData();
+        Debug.Log(gameObject.name + " current health: " + currentHealth);
     }
 
     public virtual void TakeDamage(int damage)
@@ -93,5 +94,7 @@ public class EnemyHealth : MonoBehaviour
         data.isDead = isDead;
         data.currentHealth = currentHealth;
         data.position = transform.position;
+
+        dpm.SaveGame(); // 🔥 BẮT BUỘC
     }
 }

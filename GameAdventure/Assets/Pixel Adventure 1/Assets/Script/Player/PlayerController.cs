@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     public Rigidbody2D ninjaFrog;
     public Animator animator;
-    private PlayerHit playerHit;
+    private PlayerHealth playerHealth;
 
     [Header("Audio Settings")]
     public AudioClip jumpSound;
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         originalScale = transform.localScale;
         audioSource = GetComponent<AudioSource>();
-        playerHit = GetComponent<PlayerHit>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     void Update()
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isKnockback) return; 
 
-        if (playerHit != null && playerHit.IsOutOfHearts)
+        if (playerHealth != null && playerHealth.IsOutOfHearts)
             return;
 
         float move = Input.GetAxisRaw("Horizontal");

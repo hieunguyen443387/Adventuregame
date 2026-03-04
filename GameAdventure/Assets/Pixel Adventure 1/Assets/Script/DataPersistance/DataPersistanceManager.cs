@@ -28,7 +28,7 @@ public class DataPersistanceManager : MonoBehaviour
         SaveSystem.Save(gameData); // tạo file save ngay
     }
 
-    // Load Game
+    // Load Game-
     public void LoadGame()
     {
         gameData = SaveSystem.Load();

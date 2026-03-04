@@ -49,7 +49,7 @@ public class PauseGameManager : MonoBehaviour
 
     public void QuitGame()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("MainMenu");
         Debug.Log("Game Quit!"); // chỉ hiện khi test trong Editor
     }
 

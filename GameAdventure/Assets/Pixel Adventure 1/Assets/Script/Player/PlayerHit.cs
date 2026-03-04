@@ -5,9 +5,6 @@ using Unity.Cinemachine; // ✅ Thêm thư viện Cinemachine
 
 public class PlayerHit : MonoBehaviour
 {
-    [Header("Player Stats")]
-    public int maxHearts = 3;
-    public int currentHearts;
     [Header("Death Effects")]
     public float knockbackForceX = 6f;
     public float knockbackForceY = 10f;
@@ -22,7 +19,6 @@ public class PlayerHit : MonoBehaviour
 	public AudioClip hitSound; // File âm thanh 
     private AudioSource audioSource;
     private PlayerController playerController;
-    public bool IsOutOfHearts => currentHearts <= 0;
 
 
 
@@ -31,7 +27,6 @@ public class PlayerHit : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
-        currentHearts = maxHearts;
 
         playerController = GetComponent<PlayerController>(); // ✅ THÊM
 
@@ -41,26 +36,8 @@ public class PlayerHit : MonoBehaviour
 
     public void TakeDamage()
     {
-        currentHearts--;
-        Debug.Log("Player hit! Hearts left: " + currentHearts);
-
-        if (currentHearts <= 0)
-        {
-            Debug.Log("Game Over!");
-            // ✅ Khi chết hẳn -> ngắt camera follow 
-            if (cinemachineCam != null)
-            {
-                cinemachineCam.Follow = null;
-            }
-            transform.Rotate(Vector3.forward * spinSpeed * Time.deltaTime);
-            ninjaFrog.linearVelocity = Vector2.zero;
-            ninjaFrog.gravityScale = 3f;
-            ninjaFrog.freezeRotation = false;
-            playerCollider.isTrigger = true;
-
-            // 💥 Hất văng
-            ninjaFrog.AddForce(new Vector2(knockbackForceX, knockbackForceY), ForceMode2D.Impulse);
-        }
+        PlayerHealth health = GetComponent<PlayerHealth>();
+        if (health == null) return;
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.Cinemachine;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,6 +11,15 @@ public class PlayerHealth : MonoBehaviour
 
     private bool playerDie;
     public bool PlayerDie => playerDie;
+    [Header("Death Effects")]
+    public float knockbackForceX = 6f;
+    public float knockbackForceY = 10f;
+    public float spinSpeed = 720f;
+    [Header("Cinemachine Camera")] 
+    public CinemachineCamera cinemachineCam;
+    [Header("References")]
+    public Rigidbody2D ninjaFrog;
+    private Collider2D playerCollider;
 
     [Header("UI")]
     public Image[] hearts;
@@ -17,10 +27,14 @@ public class PlayerHealth : MonoBehaviour
     public Sprite emptyHeart;
 
     private DataPersistanceManager dpm;
+    public bool IsOutOfHearts => currentHealth <= 0;
 
     void Start()
     {
         dpm = DataPersistanceManager.instance;
+        playerCollider = GetComponent<Collider2D>();
+        if (cinemachineCam == null)
+            cinemachineCam = FindAnyObjectByType<CinemachineCamera>();
 
         // ===== LOAD DATA =====
         if (dpm != null && dpm.gameData != null)
@@ -58,8 +72,27 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth == 0)
         {
             playerDie = true;
+            DieEffect();
             Debug.Log("Player died");
         }
+    }
+
+    private void DieEffect()
+    {
+        Debug.Log("Game Over!");
+
+        if (cinemachineCam != null)
+            cinemachineCam.Follow = null;
+
+        ninjaFrog.linearVelocity = Vector2.zero;
+        ninjaFrog.gravityScale = 3f;
+        ninjaFrog.freezeRotation = false;
+        playerCollider.isTrigger = true;
+
+        ninjaFrog.AddForce(
+            new Vector2(knockbackForceX, knockbackForceY),
+            ForceMode2D.Impulse
+        );
     }
 
     private void SavePlayerHealth()
