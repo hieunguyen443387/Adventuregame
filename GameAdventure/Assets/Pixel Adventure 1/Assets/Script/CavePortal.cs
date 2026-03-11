@@ -21,6 +21,6 @@ public class CavePortal : MonoBehaviour
         yield return StartCoroutine(ScreenFader.instance.FadeOut(delayBeforeLoad));
 
         // sau khi fade xong thì load scene mới
-        SceneManager.LoadScene("AdventureGame");
+        SceneManager.LoadScene(sceneToLoad);
     }
 }

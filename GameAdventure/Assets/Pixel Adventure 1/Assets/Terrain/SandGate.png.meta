@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 6e1bad318bda239428f4cbe6b4879a25
+guid: 8bf3150af53db854e874ffa857a233c6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 277827756793782197
-    second: BG3 Japan_0
-  - first:
-      213: 7063882875767793345
-    second: BG3 Japan_1
-  - first:
-      213: -801654621992236359
-    second: BG3 Japan_2
+      213: 8502903454936787981
+    second: SandGate_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -57,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -106,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BG3 Japan_0
+      name: SandGate_0
       rect:
         serializedVersion: 2
-        x: 53
-        y: 617
-        width: 255
-        height: 132
+        x: 0
+        y: 589
+        width: 75
+        height: 75
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,52 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5bfdf607fda0bd300800000000000000
-      internalID: 277827756793782197
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BG3 Japan_1
-      rect:
-        serializedVersion: 2
-        x: 477
-        y: 585
-        width: 250
-        height: 214
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1c6aa19ac04f70260800000000000000
-      internalID: 7063882875767793345
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BG3 Japan_2
-      rect:
-        serializedVersion: 2
-        x: 94
-        y: 405
-        width: 272
-        height: 210
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9ba4a9f5e53ffd4f0800000000000000
-      internalID: -801654621992236359
+      spriteID: d0ce2f654a1600670800000000000000
+      internalID: 8502903454936787981
       vertices: []
       indices: 
       edges: []
@@ -175,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: bec528722a608b9408dff9d468f6a724
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -183,13 +133,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      BG3 Japan_0: 277827756793782197
-      BG3 Japan_1: 7063882875767793345
-      BG3 Japan_2: -801654621992236359
+      SandGate_0: 8502903454936787981
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

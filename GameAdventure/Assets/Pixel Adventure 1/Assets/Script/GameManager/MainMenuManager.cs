@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Scene Settings")]
-    [SerializeField] private string startSceneName = "SwampMap";
+    [SerializeField] private string startSceneName = "CastleBossMap";
 
     [Header("UI")]
     [SerializeField] private GameObject continueButton;
@@ -18,6 +18,8 @@ public class MainMenuManager : MonoBehaviour
     public void NewGame()
     {
         DataPersistanceManager.instance.NewGame();
+        // set scene bắt đầu
+        DataPersistanceManager.instance.gameData.lastSceneName = startSceneName;
         SceneManager.LoadScene(startSceneName);
     }
 
