@@ -4235,7 +4235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f1702322b96c641a978bbe1d855fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSceneName: BeachMap
+  startSceneName: SwampMap
   continueButton: {fileID: 232449328}
 --- !u!1 &1801403413
 GameObject:

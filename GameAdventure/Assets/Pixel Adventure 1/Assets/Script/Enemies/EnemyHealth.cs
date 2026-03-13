@@ -11,11 +11,17 @@ public class EnemyHealth : MonoBehaviour
 
     [Header("References")]
     public Animator animator;
+    public GameObject paperRoll;    
 
     protected virtual void Start()
     {
         LoadEnemyData();
         Debug.Log(gameObject.name + " current health: " + currentHealth);
+
+        if (paperRoll != null)
+        {
+            paperRoll.SetActive(false);
+        }
     }
 
     public virtual void TakeDamage(int damage)
@@ -45,8 +51,18 @@ public class EnemyHealth : MonoBehaviour
     public void DestroyEnemy()
     {
         Debug.Log(gameObject.name + " bị destroy");
+
+        if (paperRoll != null)
+        {
+            paperRoll.transform.position = transform.position; // đặt đúng vị trí enemy
+            paperRoll.SetActive(true);
+
+            paperRoll.transform.parent = null; // tách khỏi enemy
+        }
+
         gameObject.SetActive(false);
     }
+
 
     // ================= SAVE / LOAD =================
 

@@ -19,7 +19,7 @@ public class GameData
     {
         playerHealth = 3;
         playerPosition = Vector3.zero;
-        lastSceneName = "SwampMap";
+        lastSceneName = "CastleBossMap";
         enemies = new List<EnemySaveData>();
     }
 }

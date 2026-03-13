@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: da512a9be37e3814e95af37f98c9e6a6
+guid: 5b62f61704fc23d4a9ea66b64c86b29c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4454574095591645878
-    second: paperroll_0
+      213: 7604561499388521930
+    second: 20834_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: paperroll_0
+      name: 20834_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 27
-        width: 36
-        height: 31
+        y: 0
+        width: 6270
+        height: 2194
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a4d5a9e167c2e22c0800000000000000
-      internalID: -4454574095591645878
+      spriteID: acd2aab9464d88960800000000000000
+      internalID: 7604561499388521930
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      paperroll_0: -4454574095591645878
+      20834_0: 7604561499388521930
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
