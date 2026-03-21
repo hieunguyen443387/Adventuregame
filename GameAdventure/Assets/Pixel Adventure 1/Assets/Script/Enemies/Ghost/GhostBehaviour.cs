@@ -10,6 +10,7 @@ public class GhostBehaviour : MonoBehaviour
     public Animator animator;
     public SpriteRenderer ghostSprite;
     public Collider2D ghostCollider;
+    public Collider2D boxHit;
     private DetectPlayer detect;  
 
     [Header("After Hit Settings")]
@@ -80,6 +81,7 @@ public class GhostBehaviour : MonoBehaviour
     {
         ghostSprite.enabled = false;
         ghostCollider.enabled = false;
+        boxHit.enabled = false;
         StartCoroutine(DisappearCooldown());
     }
 
@@ -87,6 +89,7 @@ public class GhostBehaviour : MonoBehaviour
     {
         ghostSprite.enabled = true;
         ghostCollider.enabled = true;
+        boxHit.enabled = true;
 
         TeleportToPlayer();
 

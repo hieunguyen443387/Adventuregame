@@ -2867,6 +2867,7 @@ MonoBehaviour:
   enemyID: NPCPatrol_Mushroom_3
   maxHealth: 20
   animator: {fileID: 76309885}
+  paperRoll: {fileID: 0}
 --- !u!61 &76309882
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11375,6 +11376,7 @@ MonoBehaviour:
   enemyID: NPCPatrol_Mushroom_1
   maxHealth: 0
   animator: {fileID: 256704656}
+  paperRoll: {fileID: 0}
 --- !u!50 &256704654
 Rigidbody2D:
   serializedVersion: 5
@@ -32469,6 +32471,7 @@ MonoBehaviour:
   enemyID: NPCPatrol_Mushroom_5
   maxHealth: 20
   animator: {fileID: 1186833838}
+  paperRoll: {fileID: 0}
 --- !u!61 &1186833835
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -32938,6 +32941,7 @@ MonoBehaviour:
   enemyID: NPCPatrol_Mushroom_4
   maxHealth: 20
   animator: {fileID: 1252798290}
+  paperRoll: {fileID: 0}
 --- !u!61 &1252798287
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -35450,6 +35454,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1515362416}
   - {fileID: 1418108385}
   - {fileID: 1967549041}
   - {fileID: 441683}
@@ -40538,7 +40543,7 @@ Transform:
   m_GameObject: {fileID: 1359856118}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -34.378727, y: 3.1242657, z: -10}
+  m_LocalPosition: {x: -34.860916, y: 4.2326474, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45007,11 +45012,12 @@ Transform:
   m_GameObject: {fileID: 1515362415}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 390.68, y: -2.82, z: 0}
+  m_LocalPosition: {x: 6.6799927, y: -2.82, z: 0.76}
   m_LocalScale: {x: 12, y: 12, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1713808080}
+  m_Children:
+  - {fileID: 1593493698}
+  m_Father: {fileID: 1290024998}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1515362417
 MonoBehaviour:
@@ -45325,9 +45331,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1593493692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e68c64ef6d892f4fa9c61e06f80c17a, type: 3}
+  m_Script: {fileID: 11500000, guid: f32ae103f5ee61243a3fb531267ee614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneToLoad: JapanForestBossMap
+  delayBeforeLoad: 1.5
 --- !u!114 &1593493695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45404,7 +45412,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2068495919}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1515362416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -46594,6 +46602,7 @@ MonoBehaviour:
   enemyID: NPCPatrol_Mushroom_2
   maxHealth: 20
   animator: {fileID: 1693508674}
+  paperRoll: {fileID: 0}
 --- !u!61 &1693508671
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -46833,7 +46842,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1398674907}
-  - {fileID: 1515362416}
   - {fileID: 578339929}
   - {fileID: 735629298}
   - {fileID: 632457964}
@@ -54778,6 +54786,7 @@ MonoBehaviour:
   enemyID: Big_NPCPatrol_Mushroom
   maxHealth: 50
   animator: {fileID: 1967549047}
+  paperRoll: {fileID: 0}
 --- !u!61 &1967549044
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -57958,8 +57967,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 188188029}
   - {fileID: 1809320010}
+  - {fileID: 1596614853}
   - {fileID: 5605683834054663453}
   - {fileID: 1713808080}
-  - {fileID: 1596614853}
   - {fileID: 433661301}
-  - {fileID: 1593493698}

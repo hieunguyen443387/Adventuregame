@@ -106,7 +106,7 @@ public class GameOverManager : MonoBehaviour
     // Hàm gọi khi bấm "Quit"
     public void QuitGame()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("MainMenu");
         Debug.Log("Game Quit!"); // chỉ hiện khi test trong Editor
     }
 }

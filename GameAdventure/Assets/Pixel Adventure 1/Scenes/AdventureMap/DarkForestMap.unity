@@ -404,9 +404,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 102969776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e68c64ef6d892f4fa9c61e06f80c17a, type: 3}
+  m_Script: {fileID: 11500000, guid: f32ae103f5ee61243a3fb531267ee614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneToLoad: DarkForestBossMap
+  delayBeforeLoad: 1.5
 --- !u!114 &102969779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,7 +485,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 421168867}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1590996721}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -16497,7 +16499,6 @@ Transform:
   m_Children:
   - {fileID: 379141181}
   - {fileID: 1144436594}
-  - {fileID: 1590996721}
   - {fileID: 928932303}
   - {fileID: 1149169678}
   m_Father: {fileID: 0}
@@ -28571,6 +28572,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1590996721}
   - {fileID: 1184656488}
   - {fileID: 742937682}
   - {fileID: 742345800}
@@ -38402,6 +38404,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Radish_1
   maxHealth: 20
   animator: {fileID: 771067846}
+  paperRoll: {fileID: 0}
 --- !u!114 &771067845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39158,6 +39161,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Radish_3
   maxHealth: 20
   animator: {fileID: 904860594}
+  paperRoll: {fileID: 0}
 --- !u!114 &904860593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40150,6 +40154,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Radish_5
   maxHealth: 20
   animator: {fileID: 1006516744}
+  paperRoll: {fileID: 0}
 --- !u!114 &1006516743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44534,6 +44539,7 @@ MonoBehaviour:
   enemyID: Big_NPC_Patrol_Radish
   maxHealth: 50
   animator: {fileID: 1184656491}
+  paperRoll: {fileID: 0}
 --- !u!114 &1184656490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49668,6 +49674,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Radish_7
   maxHealth: 20
   animator: {fileID: 1341018879}
+  paperRoll: {fileID: 0}
 --- !u!114 &1341018878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55784,11 +55791,12 @@ Transform:
   m_GameObject: {fileID: 1590996720}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 390.72, y: -3.33, z: 0}
+  m_LocalPosition: {x: 6.720001, y: -3.33, z: 0.76}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 493813039}
+  m_Children:
+  - {fileID: 102969782}
+  m_Father: {fileID: 635740780}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1590996722
 MonoBehaviour:
@@ -56537,6 +56545,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Radish_2
   maxHealth: 20
   animator: {fileID: 1712018590}
+  paperRoll: {fileID: 0}
 --- !u!114 &1712018589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56843,6 +56852,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Radish_6
   maxHealth: 20
   animator: {fileID: 1791414049}
+  paperRoll: {fileID: 0}
 --- !u!114 &1791414048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57038,7 +57048,7 @@ Transform:
   m_GameObject: {fileID: 1830216065}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.50816, y: 0.17559004, z: -10}
+  m_LocalPosition: {x: -34.860916, y: 4.2326474, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57163,7 +57173,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9
+  orthographic size: 12
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -63407,6 +63417,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Radish_4
   maxHealth: 20
   animator: {fileID: 1943202890}
+  paperRoll: {fileID: 0}
 --- !u!114 &1943202889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68176,7 +68187,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -68243,10 +68254,10 @@ Tilemap:
   - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: a2aaa6ce01e483146819cf34003693ca, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: -2029073741, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -2029073741, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 439440209, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
   - m_RefCount: 4
@@ -69355,10 +69366,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 1205792007}
   - {fileID: 1598284174}
+  - {fileID: 1462200662}
   - {fileID: 5605683834746344544}
   - {fileID: 493813039}
-  - {fileID: 102969782}
   - {fileID: 1027025125}
-  - {fileID: 1462200662}
   - {fileID: 1347448656}
   - {fileID: 1992789465}

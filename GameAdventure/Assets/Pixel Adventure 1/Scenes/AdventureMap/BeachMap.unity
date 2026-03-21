@@ -10506,11 +10506,12 @@ Transform:
   m_GameObject: {fileID: 426306406}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 455.29, y: -2.48, z: 0}
+  m_LocalPosition: {x: 7.2900085, y: -2.48, z: 0.76}
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1925971623}
+  m_Children:
+  - {fileID: 1530793346}
+  m_Father: {fileID: 928241680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &451305266
 GameObject:
@@ -30226,6 +30227,7 @@ MonoBehaviour:
   enemyID: NPCPatrolTurtle_5
   maxHealth: 2
   animator: {fileID: 878201336}
+  paperRoll: {fileID: 0}
 --- !u!61 &878201333
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -50951,6 +50953,7 @@ MonoBehaviour:
   enemyID: NPCPatrolTurtle_2
   maxHealth: 2
   animator: {fileID: 924464961}
+  paperRoll: {fileID: 0}
 --- !u!61 &924464958
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -51183,6 +51186,7 @@ Transform:
   - {fileID: 1875582295}
   - {fileID: 833020896}
   - {fileID: 1362686226}
+  - {fileID: 426306411}
   m_Father: {fileID: 1848386190}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &931219777
@@ -53503,6 +53507,7 @@ MonoBehaviour:
   enemyID: BigNPCPatrolTurtle
   maxHealth: 40
   animator: {fileID: 1155442425}
+  paperRoll: {fileID: 0}
 --- !u!61 &1155442422
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -74154,6 +74159,7 @@ MonoBehaviour:
   enemyID: NPCPatrolTurtle_4
   maxHealth: 2
   animator: {fileID: 1408302641}
+  paperRoll: {fileID: 0}
 --- !u!61 &1408302638
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -76608,9 +76614,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1530793340}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e68c64ef6d892f4fa9c61e06f80c17a, type: 3}
+  m_Script: {fileID: 11500000, guid: f32ae103f5ee61243a3fb531267ee614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneToLoad: BeachBossMap
+  delayBeforeLoad: 1.5
 --- !u!114 &1530793343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76687,7 +76695,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 81008126}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 426306411}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -84569,6 +84577,7 @@ MonoBehaviour:
   enemyID: NPCPatrolTurtle_3
   maxHealth: 2
   animator: {fileID: 1657773596}
+  paperRoll: {fileID: 0}
 --- !u!61 &1657773593
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -85352,6 +85361,7 @@ MonoBehaviour:
   enemyID: NPCPatrolTurtle_1
   maxHealth: 2
   animator: {fileID: 1751610692}
+  paperRoll: {fileID: 0}
 --- !u!61 &1751610689
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -99337,7 +99347,6 @@ Transform:
   - {fileID: 1848386190}
   - {fileID: 1779168011}
   - {fileID: 1406219889}
-  - {fileID: 426306411}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1938876567
@@ -100658,10 +100667,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 63982472}
+  - {fileID: 478148388}
+  - {fileID: 5605683834376618332}
   - {fileID: 1508410495}
   - {fileID: 1925971623}
   - {fileID: 1844663498}
-  - {fileID: 5605683834376618332}
-  - {fileID: 478148388}
   - {fileID: 44528040}
-  - {fileID: 1530793346}

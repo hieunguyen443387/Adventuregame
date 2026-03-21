@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 7496594084011795843}
   - component: {fileID: 5154482687864668793}
   - component: {fileID: 5277262233401820115}
-  - component: {fileID: 880807344681425576}
   m_Layer: 0
   m_Name: Plant
   m_TagString: Untagged
@@ -303,16 +302,4 @@ MonoBehaviour:
   enemyID: 
   maxHealth: 6
   animator: {fileID: 153683854688537442}
---- !u!114 &880807344681425576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8234141425896014450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1073ab850ab478f488dd1850440352cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cinemachineCam: {fileID: 0}
+  paperRoll: {fileID: 0}

@@ -26,6 +26,7 @@ public class MainMenuManager : MonoBehaviour
     public void ContinueGame()
     {
         var data = DataPersistanceManager.instance.gameData;
+        data.isNewGame = false;   // 🔥 đánh dấu là continue
 
         if (data == null)
         {
@@ -35,5 +36,16 @@ public class MainMenuManager : MonoBehaviour
 
         Debug.Log("▶ Continue game → load scene: " + data.lastSceneName);
         SceneManager.LoadScene(data.lastSceneName);
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Thoát game");
+
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false; // Dừng Play Mode
+        #else
+            Application.Quit(); // Thoát game khi build
+        #endif
     }
 }

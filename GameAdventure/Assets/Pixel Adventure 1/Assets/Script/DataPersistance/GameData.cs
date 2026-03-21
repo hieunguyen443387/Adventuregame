@@ -8,6 +8,7 @@ public class GameData
     // ===== PLAYER =====
     public int playerHealth;
     public Vector3 playerPosition;
+    public bool isNewGame;
 
     // ===== SCENE / MAP =====
     public string lastSceneName;
@@ -21,5 +22,6 @@ public class GameData
         playerPosition = Vector3.zero;
         lastSceneName = "CastleBossMap";
         enemies = new List<EnemySaveData>();
+        isNewGame = true; // 🔥 mặc định là game mới
     }
 }

@@ -8119,6 +8119,7 @@ MonoBehaviour:
   enemyID: 
   maxHealth: 2
   animator: {fileID: 263656998}
+  paperRoll: {fileID: 0}
 --- !u!61 &263656995
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8531,9 +8532,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 325184069}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e68c64ef6d892f4fa9c61e06f80c17a, type: 3}
+  m_Script: {fileID: 11500000, guid: f32ae103f5ee61243a3fb531267ee614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneToLoad: CastleBossMap
+  delayBeforeLoad: 1.5
 --- !u!114 &325184072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8610,7 +8613,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 836366043}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1848621069}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12364,6 +12367,7 @@ MonoBehaviour:
   enemyID: NPCPatrolSkrull_2
   maxHealth: 5
   animator: {fileID: 405637001}
+  paperRoll: {fileID: 0}
 --- !u!114 &405636999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13946,7 +13950,6 @@ Transform:
   - {fileID: 2091553037}
   - {fileID: 1149661931}
   - {fileID: 777713876}
-  - {fileID: 1848621069}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &655685238
@@ -15174,6 +15177,7 @@ MonoBehaviour:
   enemyID: NPCPatrolSkrull_1
   maxHealth: 5
   animator: {fileID: 703557081}
+  paperRoll: {fileID: 0}
 --- !u!114 &703557086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18297,6 +18301,7 @@ MonoBehaviour:
   enemyID: BigNPCPatrolSkrull
   maxHealth: 30
   animator: {fileID: 756436901}
+  paperRoll: {fileID: 0}
 --- !u!114 &756436899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20316,6 +20321,7 @@ Transform:
   - {fileID: 966236949}
   - {fileID: 1384620416}
   - {fileID: 331391090}
+  - {fileID: 1848621069}
   m_Father: {fileID: 1149661931}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &825042939
@@ -33901,7 +33907,7 @@ Transform:
   m_GameObject: {fileID: 1080875294}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -34.57062, y: 3.0051625, z: -10}
+  m_LocalPosition: {x: -34.560917, y: 4.2326474, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37554,6 +37560,7 @@ MonoBehaviour:
   enemyID: NPCPatrolSkrull_3
   maxHealth: 5
   animator: {fileID: 1149164729}
+  paperRoll: {fileID: 0}
 --- !u!114 &1149164727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50865,6 +50872,7 @@ MonoBehaviour:
   enemyID: SkrullBoss
   maxHealth: 10
   animator: {fileID: 1795072511}
+  paperRoll: {fileID: 0}
   attackCircleGrow: {fileID: 705947836}
   attackCircleCollider: {fileID: 655685238}
   attackHitBox: {fileID: 1111540008}
@@ -51428,11 +51436,12 @@ Transform:
   m_GameObject: {fileID: 1848621064}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 391.35, y: -3.03, z: 0}
+  m_LocalPosition: {x: 7.350006, y: -3.03, z: 0.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 650251004}
+  m_Children:
+  - {fileID: 325184075}
+  m_Father: {fileID: 795630015}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1861348037
 GameObject:
@@ -51605,6 +51614,7 @@ MonoBehaviour:
   enemyID: NPCPatrolSkrull_4
   maxHealth: 5
   animator: {fileID: 1866578982}
+  paperRoll: {fileID: 0}
 --- !u!114 &1866578980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57210,11 +57220,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 243095139}
+  - {fileID: 1525377113}
   - {fileID: 650251004}
   - {fileID: 5605683834606746600}
   - {fileID: 1181653246}
   - {fileID: 263657000}
   - {fileID: 1795072516}
-  - {fileID: 1525377113}
   - {fileID: 1071624428}
-  - {fileID: 325184075}

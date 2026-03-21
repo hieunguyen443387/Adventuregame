@@ -11,12 +11,16 @@ public class PlayerHealth : MonoBehaviour
 
     private bool playerDie;
     public bool PlayerDie => playerDie;
+    public bool IsOutOfHearts => currentHealth <= 0;
+
     [Header("Death Effects")]
     public float knockbackForceX = 6f;
     public float knockbackForceY = 10f;
     public float spinSpeed = 720f;
+
     [Header("Cinemachine Camera")] 
     public CinemachineCamera cinemachineCam;
+
     [Header("References")]
     public Rigidbody2D ninjaFrog;
     private Collider2D playerCollider;
@@ -27,12 +31,12 @@ public class PlayerHealth : MonoBehaviour
     public Sprite emptyHeart;
 
     private DataPersistanceManager dpm;
-    public bool IsOutOfHearts => currentHealth <= 0;
 
     void Start()
     {
         dpm = DataPersistanceManager.instance;
         playerCollider = GetComponent<Collider2D>();
+
         if (cinemachineCam == null)
             cinemachineCam = FindAnyObjectByType<CinemachineCamera>();
 
@@ -40,22 +44,33 @@ public class PlayerHealth : MonoBehaviour
         if (dpm != null && dpm.gameData != null)
         {
             // Load máu
-            currentHealth = dpm.gameData.playerHealth;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            currentHealth = Mathf.Clamp(dpm.gameData.playerHealth, 0, maxHealth);
 
-            // Load vị trí player
-            if (dpm.gameData.playerPosition != Vector3.zero)
+            // 🔵 Continue → load vị trí đã save
+            if (!dpm.gameData.isNewGame)
             {
                 transform.position = dpm.gameData.playerPosition;
+            }
+            // 🟢 New Game → giữ nguyên vị trí spawn trong scene
+            else
+            {
+                dpm.gameData.isNewGame = false; // tránh bị coi là NewGame lần sau
             }
         }
         else
         {
-            // New Game fallback
+            // Fallback nếu lỗi save system
             currentHealth = maxHealth;
         }
 
         UpdateHeartsUI();
+    }
+    void Update()
+    {
+        if (dpm != null && dpm.gameData != null)
+        {
+            dpm.gameData.playerPosition = transform.position;
+        }
     }
 
     public void TakeDamage(int damage)
@@ -65,8 +80,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        SavePlayerHealth();
-
+        SavePlayerData();
         UpdateHeartsUI();
 
         if (currentHealth == 0)
@@ -95,10 +109,11 @@ public class PlayerHealth : MonoBehaviour
         );
     }
 
-    private void SavePlayerHealth()
+    private void SavePlayerData()
     {
         if (dpm == null || dpm.gameData == null) return;
 
+        // ✅ Cập nhật dữ liệu trước khi save
         dpm.gameData.playerHealth = currentHealth;
         dpm.gameData.playerPosition = transform.position;
         dpm.gameData.lastSceneName = SceneManager.GetActiveScene().name;
@@ -114,8 +129,14 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        // ✅ Save khi đổi scene / tắt object
+        SavePlayerData();
+    }
+
     private void OnApplicationQuit()
     {
-        SavePlayerHealth();
+        SavePlayerData();
     }
 }

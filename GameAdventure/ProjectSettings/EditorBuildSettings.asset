@@ -9,17 +9,17 @@ EditorBuildSettings:
     path: Assets/Pixel Adventure 1/Scenes/MainMenu.unity
     guid: 49f4b6682b965db4bbecde5f3c0d5b65
   - enabled: 1
-    path: Assets/Pixel Adventure 1/Scenes/AdventureMap/CastleMap.unity
-    guid: 01b332cbeb2a6ae44a19d0e7de0f6be8
-  - enabled: 1
-    path: Assets/Pixel Adventure 1/Scenes/BossMap/CastleBossMap.unity
-    guid: 63bdccd9b3b56614395c97ff0e92d838
-  - enabled: 1
     path: Assets/Pixel Adventure 1/Scenes/AdventureMap/SwampMap.unity
     guid: 41fc554539e77e743915a64fdd9fa358
   - enabled: 1
     path: Assets/Pixel Adventure 1/Scenes/BossMap/SwampBossMap.unity
     guid: 6c9a14fe14ff5b64495e6f74a8e84190
+  - enabled: 1
+    path: Assets/Pixel Adventure 1/Scenes/AdventureMap/CastleMap.unity
+    guid: 01b332cbeb2a6ae44a19d0e7de0f6be8
+  - enabled: 1
+    path: Assets/Pixel Adventure 1/Scenes/BossMap/CastleBossMap.unity
+    guid: 63bdccd9b3b56614395c97ff0e92d838
   - enabled: 1
     path: Assets/Pixel Adventure 1/Scenes/AdventureMap/BeachMap.unity
     guid: 37491308f71d63945b273add06768746

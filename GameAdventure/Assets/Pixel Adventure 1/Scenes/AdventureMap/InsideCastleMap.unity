@@ -70250,9 +70250,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 749881458}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e68c64ef6d892f4fa9c61e06f80c17a, type: 3}
+  m_Script: {fileID: 11500000, guid: f32ae103f5ee61243a3fb531267ee614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneToLoad: InsideCastleBossMap
+  delayBeforeLoad: 1.5
 --- !u!114 &749881461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70410,6 +70412,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Ghost_6
   maxHealth: 20
   animator: {fileID: 754771306}
+  paperRoll: {fileID: 0}
 --- !u!95 &754771306
 Animator:
   serializedVersion: 7
@@ -97642,7 +97645,7 @@ Transform:
   m_GameObject: {fileID: 873751516}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 372.49936, y: 3.0011923, z: -10}
+  m_LocalPosition: {x: -34.860916, y: 4.2326474, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -118052,6 +118055,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Big_Ghost
   maxHealth: 50
   animator: {fileID: 938714064}
+  paperRoll: {fileID: 0}
 --- !u!95 &938714064
 Animator:
   serializedVersion: 7
@@ -183145,6 +183149,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Ghost_5
   maxHealth: 20
   animator: {fileID: 1433398679}
+  paperRoll: {fileID: 0}
 --- !u!95 &1433398679
 Animator:
   serializedVersion: 7
@@ -183568,6 +183573,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Ghost_2
   maxHealth: 20
   animator: {fileID: 1491459406}
+  paperRoll: {fileID: 0}
 --- !u!95 &1491459406
 Animator:
   serializedVersion: 7
@@ -193090,6 +193096,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Ghost_4
   maxHealth: 20
   animator: {fileID: 1622636574}
+  paperRoll: {fileID: 0}
 --- !u!95 &1622636574
 Animator:
   serializedVersion: 7
@@ -235396,6 +235403,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Ghost_3
   maxHealth: 20
   animator: {fileID: 1944897219}
+  paperRoll: {fileID: 0}
 --- !u!95 &1944897219
 Animator:
   serializedVersion: 7
@@ -236656,7 +236664,7 @@ Transform:
   m_GameObject: {fileID: 1990471604}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 386.8, y: -1.7, z: -10}
+  m_LocalPosition: {x: -47.780003, y: -4.92, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -237057,6 +237065,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Ghost_1
   maxHealth: 20
   animator: {fileID: 2068011283}
+  paperRoll: {fileID: 0}
 --- !u!95 &2068011283
 Animator:
   serializedVersion: 7
@@ -256803,7 +256812,7 @@ Transform:
   m_GameObject: {fileID: 933281733622511299}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 387, y: -1.7, z: 0}
+  m_LocalPosition: {x: -47.58, y: -4.92, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -257031,8 +257040,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1953234931}
+  - {fileID: 777713878}
   - {fileID: 5605683834306516504}
   - {fileID: 1727736087}
   - {fileID: 22434269}
   - {fileID: 1833038984}
-  - {fileID: 777713878}

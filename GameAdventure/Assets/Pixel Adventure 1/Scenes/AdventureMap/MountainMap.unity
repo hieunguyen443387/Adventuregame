@@ -4589,6 +4589,7 @@ MonoBehaviour:
   enemyID: Big_NPC_Patrol_Rock1
   maxHealth: 50
   animator: {fileID: 38821118}
+  paperRoll: {fileID: 0}
 --- !u!61 &38821115
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6129,6 +6130,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock2_7
   maxHealth: 20
   animator: {fileID: 144789323}
+  paperRoll: {fileID: 0}
 --- !u!61 &144789320
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12883,6 +12885,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock3_4
   maxHealth: 20
   animator: {fileID: 238130403}
+  paperRoll: {fileID: 0}
 --- !u!61 &238130400
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13988,6 +13991,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock1_6
   maxHealth: 20
   animator: {fileID: 272473072}
+  paperRoll: {fileID: 0}
 --- !u!61 &272473069
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14253,6 +14257,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock2_2
   maxHealth: 20
   animator: {fileID: 278669340}
+  paperRoll: {fileID: 0}
 --- !u!61 &278669337
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14518,6 +14523,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock1_4
   maxHealth: 20
   animator: {fileID: 295198987}
+  paperRoll: {fileID: 0}
 --- !u!61 &295198984
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20199,7 +20205,8 @@ Transform:
   m_LocalPosition: {x: 4.09, y: -3.92, z: 0.76}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1179445952}
   m_Father: {fileID: 1653397064}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &437870361
@@ -21268,6 +21275,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock3_2
   maxHealth: 20
   animator: {fileID: 573326913}
+  paperRoll: {fileID: 0}
 --- !u!61 &573326910
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22867,6 +22875,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock2_7
   maxHealth: 20
   animator: {fileID: 876391189}
+  paperRoll: {fileID: 0}
 --- !u!61 &876391186
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -31638,6 +31647,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock3_1
   maxHealth: 20
   animator: {fileID: 1113518370}
+  paperRoll: {fileID: 0}
 --- !u!61 &1113518367
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -31948,6 +31958,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock1_3
   maxHealth: 20
   animator: {fileID: 1146336279}
+  paperRoll: {fileID: 0}
 --- !u!61 &1146336276
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -32189,9 +32200,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1179445946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e68c64ef6d892f4fa9c61e06f80c17a, type: 3}
+  m_Script: {fileID: 11500000, guid: f32ae103f5ee61243a3fb531267ee614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneToLoad: MountainBossMap
+  delayBeforeLoad: 1.5
 --- !u!114 &1179445949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32268,7 +32281,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 192858688}
-  m_Father: {fileID: 1726802784}
+  m_Father: {fileID: 437870360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -32476,6 +32489,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock2_1
   maxHealth: 20
   animator: {fileID: 1236725033}
+  paperRoll: {fileID: 0}
 --- !u!61 &1236725030
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34097,6 +34111,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock1_1
   maxHealth: 20
   animator: {fileID: 1312666060}
+  paperRoll: {fileID: 0}
 --- !u!61 &1312666057
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -36415,6 +36430,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock1_5
   maxHealth: 20
   animator: {fileID: 1371926679}
+  paperRoll: {fileID: 0}
 --- !u!61 &1371926676
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -40898,6 +40914,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock2_4
   maxHealth: 20
   animator: {fileID: 1548823045}
+  paperRoll: {fileID: 0}
 --- !u!61 &1548823042
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -41163,6 +41180,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock2_3
   maxHealth: 20
   animator: {fileID: 1581564387}
+  paperRoll: {fileID: 0}
 --- !u!61 &1581564384
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -45095,7 +45113,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1179445952}
   - {fileID: 1058075800}
   - {fileID: 1754603318}
   - {fileID: 1484487638}
@@ -55243,6 +55260,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock3_3
   maxHealth: 20
   animator: {fileID: 1924113447}
+  paperRoll: {fileID: 0}
 --- !u!61 &1924113444
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -55802,6 +55820,7 @@ MonoBehaviour:
   enemyID: NPC_Patrol_Rock1_2
   maxHealth: 20
   animator: {fileID: 2069774755}
+  paperRoll: {fileID: 0}
 --- !u!61 &2069774752
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -58279,8 +58298,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 5605683835004559087}
+  - {fileID: 974424096}
   - {fileID: 934774401}
   - {fileID: 1531694407}
   - {fileID: 1726802784}
   - {fileID: 1732335570}
-  - {fileID: 974424096}

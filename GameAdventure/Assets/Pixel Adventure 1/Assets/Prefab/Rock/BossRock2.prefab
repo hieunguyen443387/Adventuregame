@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4362417136328713065}
   - component: {fileID: 3164947626731466832}
   - component: {fileID: 1218044592006702758}
+  - component: {fileID: 5996068688737153086}
+  - component: {fileID: -8891704881468824971}
   m_Layer: 0
   m_Name: BossRock2
   m_TagString: Enemy
@@ -29,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3294746517224551648}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 16.239658, y: -4.01355, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
@@ -79,7 +81,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1607540553
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_Sprite: {fileID: 2775701068622945926, guid: f7ea70eedecbfe34a93819309bcaf901, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -199,11 +201,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3410664d6e2b8a54f996d2b1e5e0189a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  enemyID: BossRock2
+  maxHealth: 40
   animator: {fileID: 1014210920591220410}
-  nextRockPrefab: {fileID: 736253605088770059, guid: 064a1fd73953671469dc5ab373b1f4cc, type: 3}
+  paperRoll: {fileID: 0}
+  nextRockPrefab: {fileID: 4948079467158428469, guid: 064a1fd73953671469dc5ab373b1f4cc, type: 3}
   spawnCount: 1
   spawnOffset: 0.3
+--- !u!114 &5996068688737153086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3294746517224551648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a61e049e89a924f9b145b360c8bee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  detectRange: 40
+  isFacingRight: 1
+--- !u!114 &-8891704881468824971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3294746517224551648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330be3a6b8de00d4586b19a311c1eff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 8
+  acceleration: 15
+  inertiaTime: 0.4
+  pauseAfterHit: 2
+  player: {fileID: 0}
 --- !u!1 &3752896084836843268
 GameObject:
   m_ObjectHideFlags: 0
