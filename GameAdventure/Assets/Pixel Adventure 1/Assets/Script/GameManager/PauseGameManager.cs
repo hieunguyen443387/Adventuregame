@@ -49,6 +49,10 @@ public class PauseGameManager : MonoBehaviour
 
     public void QuitGame()
     {
+        // ⭐ SAVE TRƯỚC KHI THOÁT
+        DataPersistanceManager.instance.SaveGame();
+
+        Time.timeScale = 1f; // tránh bị pause khi vào menu
         SceneManager.LoadScene("MainMenu");
         Debug.Log("Game Quit!"); // chỉ hiện khi test trong Editor
     }

@@ -16,7 +16,6 @@ public class PlayerHealth : MonoBehaviour
     [Header("Death Effects")]
     public float knockbackForceX = 6f;
     public float knockbackForceY = 10f;
-    public float spinSpeed = 720f;
 
     [Header("Cinemachine Camera")] 
     public CinemachineCamera cinemachineCam;
@@ -32,6 +31,7 @@ public class PlayerHealth : MonoBehaviour
 
     private DataPersistanceManager dpm;
 
+    // ================= START =================
     void Start()
     {
         dpm = DataPersistanceManager.instance;
@@ -40,39 +40,62 @@ public class PlayerHealth : MonoBehaviour
         if (cinemachineCam == null)
             cinemachineCam = FindAnyObjectByType<CinemachineCamera>();
 
-        // ===== LOAD DATA =====
-        if (dpm != null && dpm.gameData != null)
-        {
-            // Load máu
-            currentHealth = Mathf.Clamp(dpm.gameData.playerHealth, 0, maxHealth);
-
-            // 🔵 Continue → load vị trí đã save
-            if (!dpm.gameData.isNewGame)
-            {
-                transform.position = dpm.gameData.playerPosition;
-            }
-            // 🟢 New Game → giữ nguyên vị trí spawn trong scene
-            else
-            {
-                dpm.gameData.isNewGame = false; // tránh bị coi là NewGame lần sau
-            }
-        }
-        else
-        {
-            // Fallback nếu lỗi save system
-            currentHealth = maxHealth;
-        }
-
+        LoadPlayerData();
         UpdateHeartsUI();
     }
+
+    // ================= UPDATE =================
     void Update()
     {
+        // Autosave vị trí realtime
         if (dpm != null && dpm.gameData != null)
         {
             dpm.gameData.playerPosition = transform.position;
         }
     }
 
+    // ================= LOAD =================
+    private void LoadPlayerData()
+    {
+        if (dpm == null || dpm.gameData == null)
+        {
+            currentHealth = maxHealth;
+            return;
+        }
+
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        // ⭐ NEW GAME
+        if (dpm.gameData.isNewGame)
+        {
+            currentHealth = maxHealth;
+            dpm.gameData.playerHealth = currentHealth;
+
+            // spawn mặc định theo scene
+            dpm.gameData.playerPosition = transform.position;
+            dpm.gameData.lastSceneName = currentScene;
+
+            dpm.gameData.isNewGame = false;
+            return;
+        }
+
+        // 🔵 CONTINUE GAME
+        currentHealth = Mathf.Clamp(dpm.gameData.playerHealth, 0, maxHealth);
+
+        // ⭐ CHỈ load vị trí nếu cùng scene
+        if (dpm.gameData.lastSceneName == currentScene)
+        {
+            transform.position = dpm.gameData.playerPosition;
+        }
+        // 🟢 Scene mới → spawn mặc định
+        else
+        {
+            dpm.gameData.playerPosition = transform.position;
+            dpm.gameData.lastSceneName = currentScene;
+        }
+    }
+
+    // ================= DAMAGE =================
     public void TakeDamage(int damage)
     {
         if (currentHealth <= 0) return;
@@ -87,14 +110,11 @@ public class PlayerHealth : MonoBehaviour
         {
             playerDie = true;
             DieEffect();
-            Debug.Log("Player died");
         }
     }
 
     private void DieEffect()
     {
-        Debug.Log("Game Over!");
-
         if (cinemachineCam != null)
             cinemachineCam.Follow = null;
 
@@ -109,11 +129,11 @@ public class PlayerHealth : MonoBehaviour
         );
     }
 
+    // ================= SAVE =================
     private void SavePlayerData()
     {
         if (dpm == null || dpm.gameData == null) return;
 
-        // ✅ Cập nhật dữ liệu trước khi save
         dpm.gameData.playerHealth = currentHealth;
         dpm.gameData.playerPosition = transform.position;
         dpm.gameData.lastSceneName = SceneManager.GetActiveScene().name;
@@ -121,6 +141,7 @@ public class PlayerHealth : MonoBehaviour
         dpm.SaveGame();
     }
 
+    // ================= UI =================
     private void UpdateHeartsUI()
     {
         for (int i = 0; i < hearts.Length; i++)
@@ -129,9 +150,9 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    // ================= AUTO SAVE =================
     private void OnDisable()
     {
-        // ✅ Save khi đổi scene / tắt object
         SavePlayerData();
     }
 
